@@ -5,18 +5,18 @@ class ControllerManager {
 	}
 
 	public startModule():void{
-		var arr:Array<BaseController> = this.getControls();
+		var arr:Array<BaseModule> = this.getModules();
 		for(var i:number = 0; i < arr.length; i++)
 			{
-				var module:BaseController = arr[i] as BaseController;
+				var module:BaseModule = arr[i] as BaseModule;
 				module.startup();
 			}
 	}
 
-	private getControls():Array<BaseController>
+	private getModules():Array<BaseModule>
 	{
 		return [
-			new MapController()
+			new MapModule()
 
 		];
 

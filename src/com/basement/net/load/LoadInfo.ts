@@ -17,8 +17,8 @@ class LoadInfo {
 	public content:any;
 	/**字符串或byte（用于Urlloader加载使用）*/
 	public data:any;
-
-	
+	/**创建时间*/
+	public createTime:number=0;
 	public static XML:string = 'xml';
 	public static BYTE:string = 'byte';
 	public static JSON:string = 'json';
@@ -33,5 +33,6 @@ class LoadInfo {
 		this.priority = priority;
 		this.progressHandler = progress;
 		this.errorHandler = error;
+		this.createTime = egret.getTimer();
 	}
 }

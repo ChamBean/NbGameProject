@@ -9,6 +9,7 @@ class MapContainer extends egret.DisplayObjectContainer {
 	private _mapEffectLayer:MapEffectLayer = null;
 	public constructor() {
 		super();
+		this.touchEnabled = true;
 	}
 
 	private initLayer():void{

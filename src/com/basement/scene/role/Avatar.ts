@@ -2,6 +2,8 @@ class Avatar extends egret.DisplayObjectContainer{
 
 	private _bodyMc:egret.MovieClip;
 	private _roleData:BaseRoleData;
+	public bodyHeight:number = 0;
+	public refreshBodyHandler:Function;
 	public constructor() {
 		super();
 
@@ -20,44 +22,54 @@ class Avatar extends egret.DisplayObjectContainer{
 	public setAvatarData(data:BaseRoleData):void
 	{
 		this._roleData = data;
+		this.upDataAct();
 	}
+
 	private _newDir:number = 0;
 	private _urlKey:string;
-	public upDataAct($dir:number,state:string):void
+	public upDataAct():void
 	{
-		this._newDir = this.getFiveDir($dir);
+		var dir:number = this._roleData.dir;
+		var state:string = this._roleData.state;
+		this._newDir = this.getFiveDir(dir);
 		this._roleData.state = state;
+		this._resData = null;
+		this._texture = null;
 		this._urlKey = StringUtil.substitute(RoleState.roleUrl,this._roleData.sex,this._roleData.dress,this._roleData.sex,this._newDir,state);
 		// LoadManager.ins.addGroupLoad(key,this.onLoadComplete,this);
-		LoadManager.ins.addTextLoad(this._urlKey+'.json',this.onLoadTxtComplete,this);
+		// LoadManager.ins.addTextLoad(this._urlKey,this.onLoadTxtComplete,this);
+		LoadConfigManager.ins.getConfig(this._urlKey + '.json',this.onLoadTxtComplete,this,LoadPriorityEnum.EFFECT_PRIORITY);
+		ResourceManager.ins.getImageRes(this._urlKey + '.png',this.onLoadImgComplete,this,LoadPriorityEnum.EFFECT_PRIORITY);
+		egret.log('生成对象地址' + this._urlKey);
 	}
 
-	private onLoadTxtComplete(loadinfo:LoadInfo):void
+	private onLoadTxtComplete(obj:any):void
 	{
-		var avatar:Avatar = loadinfo.info;
-		avatar._resData = JSON.parse(loadinfo.data);
+		var avatar:Avatar = obj.data;
+		avatar._resData = JSON.parse(obj.cfg);
+		avatar.createMovieClip();
 		// var key:string = StringUtil.substitute(RoleState.roleUrl,avatar._roleData.dress,avatar._roleData.sex,avatar._newDir,avatar._roleData.state);
-		LoadManager.ins.addImgLoad(avatar._urlKey+'.png',avatar.onLoadImgComplete,avatar);
 	}
 
-	private onLoadImgComplete(loadinfo:LoadInfo):void
+	private onLoadImgComplete(obj:any):void
 	{
-		var avatar:Avatar = loadinfo.info;
-		  //获取加载到的纹理对象
-        var bitmap:egret.Bitmap = loadinfo.content;
+		var avatar:Avatar = obj.data;
+		var cmd:CBitmapData = obj.bmd;
         //创建纹理对象
 		if(avatar._texture == null)
 			avatar._texture = new egret.Texture();
-        avatar._texture.bitmapData = bitmap.bitmapData;
-		avatar.createMovieClip(loadinfo);
+        avatar._texture.bitmapData = cmd.bitmapData;
+		avatar.createMovieClip();
 	}
 
 	private _resData:any;
 	private _texture:egret.Texture;
 	
 
-	private createMovieClip(loadinfo:LoadInfo):void {
-		var avatar:Avatar = loadinfo.info;
+	private createMovieClip():void {
+		var avatar:Avatar = this;
+		if(avatar._resData == null || avatar._texture == null || avatar._texture.bitmapData == null)
+			return;
         var mcFactor:egret.MovieClipDataFactory = new egret.MovieClipDataFactory(this._resData,this._texture);
 		// if(this.scaleX == -1)
 			// this.anchorOffsetX
@@ -68,11 +80,12 @@ class Avatar extends egret.DisplayObjectContainer{
             // egret.log("LOOP_COMPLETE");
 			// egret.log('++++帧频：' + avatar._bodyMc.frameRate);
         }, this);
-	}
-
-	private onLoadComplete(loadinfo:LoadInfo):void
-	{
-		
+		if(this.bodyHeight < this._bodyMc.height)
+		{
+			this.bodyHeight = this._bodyMc.height;
+			this.dispatchEvent(new egret.Event(SceneEventName.UPDATA_ROLE_SIZE,false));
+		}
+		egret.log('创建对象成功'+mcName);
 	}
 	
 	private getFiveDir($dir:number):number
@@ -97,9 +110,18 @@ class Avatar extends egret.DisplayObjectContainer{
 		this._bodyMc.scaleX = scalex;
 		return newDir;
 	}
-
-	public dispos():void{
+	public stop():void
+	{
 		this._bodyMc.stop();
+	}
+
+	public gotoAndStop(frame:any):void
+	{
+		this._bodyMc.gotoAndStop(frame);
+	}
+	public gotoAndPlay(frame:any,playTimes:number=0):void
+	{
+		this._bodyMc.gotoAndPlay(frame,playTimes);
 	}
 
 }

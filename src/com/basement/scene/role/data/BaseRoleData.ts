@@ -19,4 +19,6 @@ class BaseRoleData {
 	public dir:number;
 	/**玩家状态*/
 	public state:string;
+
+	public speed:number = 120;
 }

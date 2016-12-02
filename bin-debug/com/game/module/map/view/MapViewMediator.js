@@ -17,6 +17,9 @@ var MapViewMediator = (function () {
         this._map.addChild(this._mapEffectLayer);
         this._map.addChild(this._mapAvatarLayer);
         this._mapAvatarLayer.init();
+        this._map.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onMapClick, this);
+    };
+    p.onMapClick = function (e) {
     };
     return MapViewMediator;
 }());

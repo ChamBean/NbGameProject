@@ -4,7 +4,7 @@ var LoadManager = (function () {
         this._max_thread = 5;
         // public ignoreErrorRequest:Boolean = true;
         // private _errorList:Object = new Object();
-        this._loadMapByUrl = new Object();
+        this._loadMapByUrl = {};
         /**
          * 是否获取到最新的版本资源
          */
@@ -61,7 +61,6 @@ var LoadManager = (function () {
     p.load = function (info) {
         if (info == null)
             return;
-        this.resetLoads();
         var loadArr = this._loadMapByUrl[info.url];
         if (loadArr != null) {
             for (var i = 0; i < loadArr.length; i++) {
@@ -86,16 +85,12 @@ var LoadManager = (function () {
             this.waitLoadList.sort(function (a, b) {
                 if (a.priority > b.priority)
                     return 1;
+                else if (a.priority > b.priority) {
+                    if (a.createTime < b.createTime)
+                        return 0;
+                }
                 return 0;
             });
-        }
-    };
-    p.resetLoads = function () {
-        for (var i = 0; i < this._taskLoads.length; i++) {
-            if (this._taskLoads[i].loading == false) {
-                if (this._freePools.indexOf(this._taskLoads[i]) == -1)
-                    this._freePools.push(this._taskLoads[i]);
-            }
         }
     };
     p.getFreeLoader = function () {
@@ -119,11 +114,35 @@ var LoadManager = (function () {
             this._taskLoads.push(loader);
         }
     };
+    p.recrycleLoad = function (loader) {
+        var url = loader.loadInfo.url;
+        loader.reset();
+        this._freePools.push(loader);
+        // console.log(egret.getTimer() + '加载结束'+url +'  回收一个loader当前长度为 ' + this._freePools.length);
+        this.loadNext();
+    };
+    p.loadNext = function () {
+        while (this.waitLoadList.length > 0) {
+            var loader = this.getFreeLoader();
+            if (loader != null) {
+                var loadInfo = this.waitLoadList.shift();
+                var delay = egret.setTimeout(delayLoad, this, 1, loader, loadInfo);
+                function delayLoad(load, info) {
+                    egret.clearTimeout(delay);
+                    load.load(info);
+                }
+            }
+            else {
+                return;
+            }
+        }
+    };
     p.loadComplete = function (e) {
         var loader = e.target;
         var info = loader.loadInfo;
         var loadArr = this._loadMapByUrl[info.url];
         this._loadMapByUrl[info.url] = null;
+        delete this._loadMapByUrl[info.url];
         this.recrycleLoad(loader);
         for (var i = 0; i < loadArr.length; i++) {
             var loadInfo = loadArr[i];
@@ -133,38 +152,20 @@ var LoadManager = (function () {
                 loadInfo.completeHandler(loadInfo);
         }
     };
-    p.recrycleLoad = function (loader) {
-        loader.reset();
-        this._freePools.push(loader);
-        this.loadNext();
-    };
-    p.loadNext = function () {
-        while (this.waitLoadList.length > 0) {
-            var loader = this.getFreeLoader();
-            if (loader != null) {
-                var loadInfo = this.waitLoadList.shift();
-                loader.load(loadInfo);
-            }
-            else {
-                return;
-            }
-        }
-    };
     p.loadProgress = function (e) {
         var loader = e.target;
         if (loader.loadInfo && loader.loadInfo.progressHandler)
-            loader.loadInfo.progressHandler(e);
+            loader.loadInfo.progressHandler(e.data);
     };
     p.IoErrorHandle = function (e) {
         var loader = e.target;
         var url = loader.loadInfo.url;
         if (loader.loadInfo && loader.loadInfo.errorHandler)
             loader.loadInfo.errorHandler(loader.loadInfo);
+        this._loadMapByUrl[url] = null;
+        this.recrycleLoad(loader);
+        egret.log(e.data);
     };
-    /**
-     * 已经加载过的连接
-     */
-    LoadManager.cacheUrl = new Object;
     return LoadManager;
 }());
 egret.registerClass(LoadManager,'LoadManager');

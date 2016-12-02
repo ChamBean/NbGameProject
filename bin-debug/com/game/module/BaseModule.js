@@ -1,7 +1,7 @@
-var BaseController = (function () {
-    function BaseController() {
+var BaseModule = (function () {
+    function BaseModule() {
     }
-    var d = __define,c=BaseController,p=c.prototype;
+    var d = __define,c=BaseModule,p=c.prototype;
     /**
      * 启动模块
      */
@@ -39,7 +39,7 @@ var BaseController = (function () {
     p.dispose = function () {
         return;
     };
-    return BaseController;
+    return BaseModule;
 }());
-egret.registerClass(BaseController,'BaseController');
-//# sourceMappingURL=BaseController.js.map
+egret.registerClass(BaseModule,'BaseModule');
+//# sourceMappingURL=BaseModule.js.map

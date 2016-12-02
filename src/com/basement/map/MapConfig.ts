@@ -3,11 +3,11 @@ class MapConfig {
 /**
 		 * 地图视野宽 
 		 */		
-		public static MAP_SCREEN_WIDTH:number = 800;
+		public static MAP_SCREEN_WIDTH:number = 480;
 		/**
 		 * 地图视野高 
 		 */		
-		public static MAP_SCREEN_HEIGHT:number = 600;
+		public static MAP_SCREEN_HEIGHT:number = 800;
 		
 		/**
 		 * 地图切片宽 

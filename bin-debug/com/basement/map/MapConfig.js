@@ -5,11 +5,11 @@ var MapConfig = (function () {
     /**
              * 地图视野宽
              */
-    MapConfig.MAP_SCREEN_WIDTH = 800;
+    MapConfig.MAP_SCREEN_WIDTH = 480;
     /**
      * 地图视野高
      */
-    MapConfig.MAP_SCREEN_HEIGHT = 600;
+    MapConfig.MAP_SCREEN_HEIGHT = 800;
     /**
      * 地图切片宽
      */

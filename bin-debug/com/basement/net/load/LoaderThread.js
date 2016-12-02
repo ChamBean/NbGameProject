@@ -5,12 +5,14 @@ var LoaderThread = (function (_super) {
     }
     var d = __define,c=LoaderThread,p=c.prototype;
     p.reset = function () {
+        this.isLoad = false;
         this.loadInfo = null;
     };
     p.load = function (info) {
         // this._urlLoad.once
         this.loadInfo = info;
-        this.loading = true;
+        this.isLoad = true;
+        // egret.log(egret.getTimer() + '开始加载'+info.url);
         switch (info.loadType) {
             case LoadInfo.GROUP:
                 RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onLoadGroupProgress, this);
@@ -20,48 +22,49 @@ var LoaderThread = (function (_super) {
                 break;
             case LoadInfo.JSON:
                 RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onLoadConfigComplete, this);
+                RES.addEventListener(RES.ResourceEvent.CONFIG_LOAD_ERROR, this.onLoadConfigError, this);
                 RES.loadConfig(info.url);
                 break;
             case LoadInfo.IMG:
-                egret.log('本次加载开始的时间' + egret.getTimer());
-                this.imgLoader.once(egret.Event.COMPLETE, this.onImgLoadComplete, this);
-                this.imgLoader.once(egret.ProgressEvent.PROGRESS, this.onImgLoadProgress, this);
-                this.imgLoader.once(egret.IOErrorEvent.IO_ERROR, this.onImgLoadError, this);
-                this.imgLoader.load(info.url);
+                var imgLoader = this.imgLoader;
+                imgLoader.once(egret.Event.COMPLETE, this.onImgLoadComplete, this);
+                imgLoader.once(egret.ProgressEvent.PROGRESS, this.onImgLoadProgress, this);
+                imgLoader.once(egret.IOErrorEvent.IO_ERROR, this.onImgLoadError, this);
+                imgLoader.load(info.url);
                 break;
             case LoadInfo.TEXT:
             case LoadInfo.XML:
-                this.urlLoad.dataFormat = egret.URLLoaderDataFormat.TEXT;
-                this.urlLoad.once(egret.Event.COMPLETE, this.onTextLoadComplete, this);
-                this.urlLoad.once(egret.ProgressEvent.PROGRESS, this.onTextLoadProgress, this);
-                this.urlLoad.once(egret.IOErrorEvent.IO_ERROR, this.onTextLoadError, this);
-                this.urlLoad.load(new egret.URLRequest(info.url));
+                var urlloader = this.urlLoad;
+                urlloader.dataFormat = egret.URLLoaderDataFormat.TEXT;
+                urlloader.addEventListener(egret.Event.COMPLETE, this.onTextLoadComplete, this);
+                urlloader.addEventListener(egret.ProgressEvent.PROGRESS, this.onTextLoadProgress, this);
+                urlloader.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onTextLoadError, this);
+                urlloader.load(new egret.URLRequest(info.url));
                 break;
             case LoadInfo.BYTE:
-                this.urlLoad.dataFormat = egret.URLLoaderDataFormat.BINARY;
-                this.urlLoad.once(egret.Event.COMPLETE, this.onTextLoadComplete, this);
-                this.urlLoad.once(egret.ProgressEvent.PROGRESS, this.onTextLoadProgress, this);
-                this.urlLoad.once(egret.IOErrorEvent.IO_ERROR, this.onTextLoadError, this);
-                this.urlLoad.load(new egret.URLRequest(info.url));
+                var urlloader = this.urlLoad;
+                urlloader.dataFormat = egret.URLLoaderDataFormat.BINARY;
+                urlloader.addEventListener(egret.Event.COMPLETE, this.onTextLoadComplete, this);
+                urlloader.addEventListener(egret.ProgressEvent.PROGRESS, this.onTextLoadProgress, this);
+                urlloader.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onTextLoadError, this);
+                urlloader.load(new egret.URLRequest(info.url));
                 break;
         }
     };
     p.onTextLoadComplete = function (e) {
-        this.loading = false;
+        // egret.log(egret.getTimer() + '结束加载'+ this.loadInfo.url);
         var urlload = e.target;
         this.loadInfo.data = urlload.data;
         this.dispatchEvent(new egret.Event(egret.Event.COMPLETE));
     };
     p.onImgLoadComplete = function (e) {
-        this.loading = false;
+        // egret.log(egret.getTimer() + '结束加载'+ this.loadInfo.url);
         var loader = e.target;
         var bmd = loader.data;
         this.loadInfo.content = new egret.Bitmap(bmd);
         this.dispatchEvent(new egret.Event(egret.Event.COMPLETE));
-        egret.log('本次加载完成的时间' + egret.getTimer());
     };
     p.onLoadConfigComplete = function (e) {
-        this.loading = false;
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onLoadConfigComplete, this);
         this.dispatchEvent(new egret.Event(egret.Event.COMPLETE));
     };
@@ -69,12 +72,10 @@ var LoaderThread = (function (_super) {
         RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onLoadGroupProgress, this);
         RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onLoadGroupError, this);
         RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onLoadGroupComplete, this);
-        this.loading = false;
         this.dispatchEvent(new egret.Event(egret.Event.COMPLETE));
     };
     p.onLoadGroupProgress = function (e) {
-        if (this.loadInfo && this.loadInfo.progressHandler)
-            this.dispatchEventWith(egret.ProgressEvent.PROGRESS, false, { loaded: e.itemsLoaded, total: e.itemsTotal });
+        this.dispatchEventWith(egret.ProgressEvent.PROGRESS, false, { loaded: e.itemsLoaded, total: e.itemsTotal });
     };
     p.onImgLoadProgress = function (e) {
         this.dispatchEventWith(egret.ProgressEvent.PROGRESS, false, { loaded: e.bytesLoaded, total: e.bytesTotal });
@@ -85,17 +86,16 @@ var LoaderThread = (function (_super) {
     p.onLoadGroupError = function (e) {
         if (this.loadInfo.errorHandler)
             this.loadInfo.errorHandler(this.loadInfo);
-        this.loading = false;
+        this.dispatchEventWith(egret.IOErrorEvent.IO_ERROR, false, { text: '加载' + e.groupName + "资源组时出错" });
+    };
+    p.onLoadConfigError = function (e) {
+        this.dispatchEventWith(egret.IOErrorEvent.IO_ERROR, false, { text: '加载' + this.loadInfo.url + "json配置时出错" });
     };
     p.onImgLoadError = function (e) {
-        if (this.loadInfo.errorHandler)
-            this.loadInfo.errorHandler(this.loadInfo);
-        this.loading = false;
+        this.dispatchEventWith(egret.IOErrorEvent.IO_ERROR, false, { text: '加载' + this.loadInfo.url + "出错" });
     };
     p.onTextLoadError = function (e) {
-        if (this.loadInfo.errorHandler)
-            this.loadInfo.errorHandler(this.loadInfo);
-        this.loading = false;
+        this.dispatchEventWith(egret.IOErrorEvent.IO_ERROR, false, { text: '加载' + this.loadInfo.url + "出错" });
     };
     d(p, "urlLoad"
         ,function () {

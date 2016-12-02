@@ -1,4 +1,4 @@
-class BaseController {
+class BaseModule {
 	public constructor() {
 	}
 

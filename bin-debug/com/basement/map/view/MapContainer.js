@@ -9,6 +9,7 @@ var MapContainer = (function (_super) {
         this._mapBackLayer = null;
         this._mapAvatarLayer = null;
         this._mapEffectLayer = null;
+        this.touchEnabled = true;
     }
     var d = __define,c=MapContainer,p=c.prototype;
     p.initLayer = function () {

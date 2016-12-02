@@ -4,12 +4,15 @@ var LoadInfo = (function () {
         if (priority === void 0) { priority = 0; }
         if (progress === void 0) { progress = null; }
         if (error === void 0) { error = null; }
+        /**创建时间*/
+        this.createTime = 0;
         this.url = url;
         this.completeHandler = complete;
         this.info = param;
         this.priority = priority;
         this.progressHandler = progress;
         this.errorHandler = error;
+        this.createTime = egret.getTimer();
     }
     var d = __define,c=LoadInfo,p=c.prototype;
     LoadInfo.XML = 'xml';

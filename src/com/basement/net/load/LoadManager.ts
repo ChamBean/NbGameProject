@@ -16,11 +16,11 @@ class LoadManager {
 	private _max_thread:number = 5;
 	// public ignoreErrorRequest:Boolean = true;
 	// private _errorList:Object = new Object();
-	private _loadMapByUrl:Object = new Object();
-	/**
-	 * 已经加载过的连接 
-	 */		
-	private static cacheUrl:Object = new Object;
+	private _loadMapByUrl:any = {};
+	// /**
+	//  * 已经加载过的连接 
+	//  */		
+	// private static cacheUrl:Object = new Object;
 	
 	private _freePools:Array<LoaderThread>;
 
@@ -88,6 +88,7 @@ class LoadManager {
 		if(loader != null)
 		{
 			loader.load(info);
+			// console.log(egret.getTimer() + '加载开始'+info.url+' 取出一个loader当前长度为' + this._freePools.length);
 		}
 		else
 		{
@@ -95,9 +96,13 @@ class LoadManager {
 			this.waitLoadList.sort(function(a:LoadInfo,b:LoadInfo):number{
 				if(a.priority > b.priority)
 					return 1;
+				else if(a.priority > b.priority){
+					if(a.createTime < b.createTime)
+						return 0;
+				}
 				return 0;
-
 			});
+			// console.log(egret.getTimer() + '等待队列中放入一个'+info.url+' 此时loader长度为' + this._freePools.length);
 		}
 	}
 
@@ -128,27 +133,12 @@ class LoadManager {
 		}
 	}
 
-	private loadComplete(e:egret.Event):void
-	{
-		var loader:LoaderThread = e.target;
-		var info:LoadInfo = loader.loadInfo;
-		var loadArr:Array<LoadInfo> = this._loadMapByUrl[info.url];
-		this._loadMapByUrl[info.url] = null;
-		this.recrycleLoad(loader);
-		for(var i:number = 0;i < loadArr.length;i++)
-		{
-			var loadInfo:LoadInfo = loadArr[i];
-			loadInfo.data = info.data;
-			loadInfo.content = info.content;
-			if(loadInfo.completeHandler)
-				loadInfo.completeHandler(loadInfo);
-		}
-	}
-
 	private recrycleLoad(loader:LoaderThread):void
 	{
+		var url:string = loader.loadInfo.url;
 		loader.reset();
 		this._freePools.push(loader);
+		// console.log(egret.getTimer() + '加载结束'+url +'  回收一个loader当前长度为 ' + this._freePools.length);
 		this.loadNext();
 	}
 
@@ -160,7 +150,14 @@ class LoadManager {
 			if (loader != null)
 			{//是否还有空闲的加载器
 				var loadInfo:LoadInfo = this.waitLoadList.shift();
-				loader.load(loadInfo);
+				var delay:number = egret.setTimeout(delayLoad,this,1,loader,loadInfo);
+					
+					function delayLoad(load:LoaderThread,info):void
+					{
+						egret.clearTimeout(delay);
+						load.load(info);
+					}
+				// console.log(egret.getTimer() + '加载等待中队列'+loadInfo.url+' 取出一个loader当前长度为' + this._freePools.length);
 			}else
 			{
 				return;
@@ -169,18 +166,39 @@ class LoadManager {
 
 	}
 	
+	private loadComplete(e:egret.Event):void
+	{
+		var loader:LoaderThread = e.target;
+		var info:LoadInfo = loader.loadInfo;
+		var loadArr:Array<LoadInfo> = this._loadMapByUrl[info.url];
+		this._loadMapByUrl[info.url] = null;
+		delete this._loadMapByUrl[info.url];
+		this.recrycleLoad(loader);
+		for(var i:number = 0;i < loadArr.length;i++)
+		{
+			var loadInfo:LoadInfo = loadArr[i];
+			loadInfo.data = info.data;
+			loadInfo.content = info.content;
+			if(loadInfo.completeHandler)
+				loadInfo.completeHandler(loadInfo);
+		}
+	}
 
 	private loadProgress(e:egret.Event):void
 	{
 		var loader:LoaderThread = e.target;
 		if(loader.loadInfo && loader.loadInfo.progressHandler)
-		loader.loadInfo.progressHandler(e);
+			loader.loadInfo.progressHandler(e.data);
 	}
-	private IoErrorHandle(e:egret.IOErrorEvent):void
+	private IoErrorHandle(e:egret.Event):void
 	{
 		var loader:LoaderThread = e.target;
 		var url:string = loader.loadInfo.url;
 		if(loader.loadInfo && loader.loadInfo.errorHandler)
 			loader.loadInfo.errorHandler(loader.loadInfo);
+		this._loadMapByUrl[url] = null;
+		this.recrycleLoad(loader);
+		egret.log(e.data);
+		
 	}
 }

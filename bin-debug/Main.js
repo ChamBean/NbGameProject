@@ -45,7 +45,6 @@ var Main = (function (_super) {
         //设置加载进度界面
         this.loadingView = new LoadingUI();
         this.stage.addChild(this.loadingView);
-        LayerManager.ins.initLayer(this);
         // initialize the Resource loading library
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
@@ -57,6 +56,8 @@ var Main = (function (_super) {
      */
     p.onConfigComplete = function (event) {
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
+        App.ins.init(this.stage);
+        App.ins.layer.initLayer(this);
         // load skin theme configuration file, you can manually modify the file. And replace the default skin.
         //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
         var theme = new eui.Theme("resource/default.thm.json", this.stage);
@@ -130,12 +131,8 @@ var Main = (function (_super) {
         //    this.stage.scaleMode = egret.StageScaleMode.NO_SCALE;
         var controlManager = new ControllerManager();
         controlManager.startModule();
-        this.onResizeHandler(null);
-        this.stage.addEventListener(egret.Event.RESIZE, this.onResizeHandler, this);
-    };
-    p.onResizeHandler = function (e) {
-        this.x = (this.stage.stageWidth - 480) / 2;
-        this.y = (this.stage.stageHeight - 800) / 2;
+        //    this.onResizeHandler(null);
+        //    this.stage.addEventListener(egret.Event.RESIZE,this.onResizeHandler,this)
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。

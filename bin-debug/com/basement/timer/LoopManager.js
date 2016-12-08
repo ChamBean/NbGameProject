@@ -75,6 +75,7 @@ var LoopManager = (function () {
      * @param event
      */
     LoopManager.addToFrame = function (loopKey, loopFun, params) {
+        if (params === void 0) { params = null; }
         var dic = LoopManager.frameLoopDic;
         if (dic[loopKey] == null) {
             var obj = { handler: loopFun, param: params };
@@ -238,8 +239,17 @@ var LoopManager = (function () {
         return time / 1000 * LoopManager.stage.frameRate;
     };
     LoopManager._isInited = false;
+    LoopManager._currentFrame = 0;
+    LoopManager._currentTime = 0;
+    LoopManager._curTime = 0;
+    LoopManager.lastTime = 0;
     LoopManager._realFrameRate = 30;
+    LoopManager._timeTime = 0;
+    LoopManager._secondTime = 0;
+    LoopManager.delayIDKey = 0;
     LoopManager._frameHold = 30;
+    LoopManager.secFrames = 0;
+    LoopManager.frameTime = 0;
     return LoopManager;
 }());
 egret.registerClass(LoopManager,'LoopManager');

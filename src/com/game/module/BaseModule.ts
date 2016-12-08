@@ -1,7 +1,8 @@
 class BaseModule {
 	public constructor() {
+		this._dispatch = GameDispatcher.ins;
 	}
-
+	private _dispatch:GameDispatcher = null;
 	/**
 	 * 启动模块
 	 */		
@@ -14,7 +15,7 @@ class BaseModule {
 	 * 模块名称
 	 * @return 
 	 */		
-	public get moduleName():String
+	public get moduleName():string
 	{
 		return "未被重写的模块名称";
 	}
@@ -39,15 +40,17 @@ class BaseModule {
 	{
 	}
 	
-	protected dispatch(param1:String, param2:any = null) : void
+	protected dispatch(param1:string, param2:any = null) : void
 	{
+		this._dispatch.dispatchEventWith(param1,false,param2);
 	}
 	
-	protected addModuleListener(param1:String, param2:Function) : void
+	protected addModuleListener(param1:string, param2:Function) : void
 	{
+		this._dispatch.addEventListener(param1,param2,this);
 	}
 	
-	protected removeModuleListener(param1:String, param2:Function) : void
+	protected removeModuleListener(param1:string, param2:Function) : void
 	{
 	}
 	

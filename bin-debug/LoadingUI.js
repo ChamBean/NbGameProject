@@ -41,8 +41,8 @@ var LoadingUI = (function (_super) {
         this.textField.height = 100;
         this.textField.textAlign = "center";
     };
-    p.setProgress = function (current, total) {
-        this.textField.text = "Loading..." + current + "/" + total;
+    p.setProgress = function (groupName, current, total) {
+        this.textField.text = 'Loading' + groupName + '资源...${current}/${total}';
     };
     return LoadingUI;
 }(egret.Sprite));

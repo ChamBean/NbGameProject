@@ -34,17 +34,18 @@ class LoaderThread extends egret.EventDispatcher {
 				RES.loadConfig(info.url);
 				break;
 			case LoadInfo.IMG:
-				var imgLoader:egret.ImageLoader = this.imgLoader;
-				imgLoader.once(egret.Event.COMPLETE,this.onImgLoadComplete,this);
-				imgLoader.once(egret.ProgressEvent.PROGRESS,this.onImgLoadProgress,this);
-				imgLoader.once(egret.IOErrorEvent.IO_ERROR,this.onImgLoadError,this);
-				imgLoader.load(info.url);
+				var urlloader:egret.URLLoader = this.urlLoad;
+				urlloader.dataFormat = egret.URLLoaderDataFormat.TEXTURE;
+				urlloader.addEventListener(egret.Event.COMPLETE,this.onUrlLoadComplete,this);
+				urlloader.addEventListener(egret.ProgressEvent.PROGRESS,this.onTextLoadProgress,this);
+				urlloader.addEventListener(egret.IOErrorEvent.IO_ERROR,this.onTextLoadError,this);
+				urlloader.load(new egret.URLRequest(info.url));
 				break;
 			case LoadInfo.TEXT:
 			case LoadInfo.XML:
 				var urlloader:egret.URLLoader = this.urlLoad;
 				urlloader.dataFormat = egret.URLLoaderDataFormat.TEXT;
-				urlloader.addEventListener(egret.Event.COMPLETE,this.onTextLoadComplete,this);
+				urlloader.addEventListener(egret.Event.COMPLETE,this.onUrlLoadComplete,this);
 				urlloader.addEventListener(egret.ProgressEvent.PROGRESS,this.onTextLoadProgress,this);
 				urlloader.addEventListener(egret.IOErrorEvent.IO_ERROR,this.onTextLoadError,this);
 				urlloader.load(new egret.URLRequest(info.url));
@@ -52,7 +53,7 @@ class LoaderThread extends egret.EventDispatcher {
 			case LoadInfo.BYTE:
 				var urlloader:egret.URLLoader = this.urlLoad;
 				urlloader.dataFormat = egret.URLLoaderDataFormat.BINARY;
-				urlloader.addEventListener(egret.Event.COMPLETE,this.onTextLoadComplete,this);
+				urlloader.addEventListener(egret.Event.COMPLETE,this.onUrlLoadComplete,this);
 				urlloader.addEventListener(egret.ProgressEvent.PROGRESS,this.onTextLoadProgress,this);
 				urlloader.addEventListener(egret.IOErrorEvent.IO_ERROR,this.onTextLoadError,this);
 				urlloader.load(new egret.URLRequest(info.url));
@@ -60,22 +61,21 @@ class LoaderThread extends egret.EventDispatcher {
 		}
 	}
 	
-	private onTextLoadComplete(e:egret.Event):void
+	private onUrlLoadComplete(e:egret.Event):void
 	{
 		// egret.log(egret.getTimer() + '结束加载'+ this.loadInfo.url);
 		var urlload:egret.URLLoader = e.target;
 		this.loadInfo.data = urlload.data;
 		this.dispatchEvent(new egret.Event(egret.Event.COMPLETE));
-
 	}
-	private onImgLoadComplete(e:egret.Event):void
-	{
-		// egret.log(egret.getTimer() + '结束加载'+ this.loadInfo.url);
-		var loader:egret.ImageLoader = e.target;
-		 var bmd:egret.BitmapData = loader.data;
-		this.loadInfo.content = new egret.Bitmap(bmd);
-		this.dispatchEvent(new egret.Event(egret.Event.COMPLETE));
-	}
+	// private onImgLoadComplete(e:egret.Event):void
+	// {
+	// 	// egret.log(egret.getTimer() + '结束加载'+ this.loadInfo.url);
+	// 	var loader:egret.ImageLoader = e.target;
+	// 	 var bmd:egret.BitmapData = loader.data;
+	// 	this.loadInfo.content = new egret.Bitmap(bmd);
+	// 	this.dispatchEvent(new egret.Event(egret.Event.COMPLETE));
+	// }
 	
 	private onLoadConfigComplete(e:RES.ResourceEvent):void{
 		RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onLoadConfigComplete,this);

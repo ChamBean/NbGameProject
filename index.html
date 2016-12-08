@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Egret</title>
+    <title>一个人的世界</title>
     <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="full-screen" content="true"/>
@@ -44,9 +44,14 @@
 	<script egret="game" src="bin-debug/com/basement/manager/LayerManager.js"></script>
 	<script egret="game" src="bin-debug/com/basement/manager/LoadConfigManager.js"></script>
 	<script egret="game" src="bin-debug/com/basement/manager/ResourceManager.js"></script>
+	<script egret="game" src="bin-debug/com/basement/map/aStar/AcorrsLineGrid.js"></script>
+	<script egret="game" src="bin-debug/com/basement/map/aStar/Arrange.js"></script>
+	<script egret="game" src="bin-debug/com/basement/map/aStar/Astart.js"></script>
+	<script egret="game" src="bin-debug/com/basement/map/aStar/MapNode.js"></script>
 	<script egret="game" src="bin-debug/com/basement/map/MapConfig.js"></script>
 	<script egret="game" src="bin-debug/com/basement/map/model/MapDataConvert.js"></script>
 	<script egret="game" src="bin-debug/com/basement/map/model/MapLoadProxy.js"></script>
+	<script egret="game" src="bin-debug/com/basement/map/model/MapSceneProxy.js"></script>
 	<script egret="game" src="bin-debug/com/basement/map/model/vo/MapEffectVo.js"></script>
 	<script egret="game" src="bin-debug/com/basement/map/model/vo/MapVo.js"></script>
 	<script egret="game" src="bin-debug/com/basement/map/SceneEventName.js"></script>
@@ -63,13 +68,27 @@
 	<script egret="game" src="bin-debug/com/basement/scene/role/BaseRole.js"></script>
 	<script egret="game" src="bin-debug/com/basement/scene/role/data/BaseRoleData.js"></script>
 	<script egret="game" src="bin-debug/com/basement/scene/role/RoleState.js"></script>
+	<script egret="game" src="bin-debug/com/basement/scene/role/RoleType.js"></script>
 	<script egret="game" src="bin-debug/com/basement/scene/SceneType.js"></script>
 	<script egret="game" src="bin-debug/com/basement/timer/LoopManager.js"></script>
+	<script egret="game" src="bin-debug/com/basement/Ui/component/UiWindow.js"></script>
+	<script egret="game" src="bin-debug/com/basement/Ui/custom/CustomToggleGroup.js"></script>
+	<script egret="game" src="bin-debug/com/basement/Ui/UiManager.js"></script>
+	<script egret="game" src="bin-debug/com/basement/Ui/view/BaseView.js"></script>
+	<script egret="game" src="bin-debug/com/game/GlobUrl.js"></script>
+	<script egret="game" src="bin-debug/com/game/Message.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/BaseModule.js"></script>
-	<script egret="game" src="bin-debug/com/game/module/ControllerManager.js"></script>
+	<script egret="game" src="bin-debug/com/game/module/createRole/CreateRoleView.js"></script>
+	<script egret="game" src="bin-debug/com/game/module/mainmenu/MainModule.js"></script>
+	<script egret="game" src="bin-debug/com/game/module/map/element/Monster.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/map/element/Player.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/map/MapModule.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/map/view/MapViewMediator.js"></script>
+	<script egret="game" src="bin-debug/com/game/module/ModuleManager.js"></script>
+	<script egret="game" src="bin-debug/com/game/module/SceneManager.js"></script>
+	<script egret="game" src="bin-debug/com/util/EventName.js"></script>
+	<script egret="game" src="bin-debug/com/util/GameDispatcher.js"></script>
+	<script egret="game" src="bin-debug/com/util/HtmlUtil.js"></script>
 	<script egret="game" src="bin-debug/com/util/StringUtil.js"></script>
 	<script egret="game" src="bin-debug/LoadingUI.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>

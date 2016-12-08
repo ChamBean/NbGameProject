@@ -85,8 +85,15 @@ class Main extends eui.UILayer {
      */
     private onResourceLoadComplete(event:RES.ResourceEvent):void {
         if (event.groupName == "preload") {
+            RES.loadGroup("common");
+        }
+        else if(event.groupName == 'common'){
+             // this.stage.removeChild(this.loadingView);
+            RES.loadGroup("cjjs");
+        }
+        else if(event.groupName == 'cjjs'){
             this.stage.removeChild(this.loadingView);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
+             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
             RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
@@ -122,9 +129,9 @@ class Main extends eui.UILayer {
      * loading process of preload resource
      */
     private onResourceProgress(event:RES.ResourceEvent):void {
-        if (event.groupName == "preload") {
-            this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
-        }
+        this.loadingView.setProgress(event.groupName,event.itemsLoaded, event.itemsTotal);
+        // if (event.groupName == "preload") {
+        // }
     }
    
     /**
@@ -133,8 +140,8 @@ class Main extends eui.UILayer {
      */
     protected startCreateScene(): void {
     //    this.stage.scaleMode = egret.StageScaleMode.NO_SCALE;
-       var controlManager:ControllerManager = new ControllerManager();
-       controlManager.startModule();
+       var module:ModuleManager = new ModuleManager();
+       module.startModule();
     //    this.onResizeHandler(null);
     //    this.stage.addEventListener(egret.Event.RESIZE,this.onResizeHandler,this)
     }

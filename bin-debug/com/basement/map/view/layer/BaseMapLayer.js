@@ -8,6 +8,8 @@ var BaseMapLayer = (function (_super) {
         _super.call(this);
     }
     var d = __define,c=BaseMapLayer,p=c.prototype;
+    p.clear = function () {
+    };
     return BaseMapLayer;
 }(egret.DisplayObjectContainer));
 egret.registerClass(BaseMapLayer,'BaseMapLayer');

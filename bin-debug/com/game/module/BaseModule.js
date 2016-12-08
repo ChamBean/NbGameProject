@@ -1,5 +1,7 @@
 var BaseModule = (function () {
     function BaseModule() {
+        this._dispatch = null;
+        this._dispatch = GameDispatcher.ins;
     }
     var d = __define,c=BaseModule,p=c.prototype;
     /**
@@ -31,8 +33,10 @@ var BaseModule = (function () {
     };
     p.dispatch = function (param1, param2) {
         if (param2 === void 0) { param2 = null; }
+        this._dispatch.dispatchEventWith(param1, false, param2);
     };
     p.addModuleListener = function (param1, param2) {
+        this._dispatch.addEventListener(param1, param2, this);
     };
     p.removeModuleListener = function (param1, param2) {
     };

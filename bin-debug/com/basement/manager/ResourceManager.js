@@ -1,3 +1,8 @@
+/**
+ * 所有图片资源加载管理器
+ * @author Bean
+ * @since 2016.12.04
+ */
 var ResourceManager = (function () {
     function ResourceManager() {
         this._inited = false;
@@ -6,13 +11,6 @@ var ResourceManager = (function () {
         this._loadDic = {};
     }
     var d = __define,c=ResourceManager,p=c.prototype;
-    d(ResourceManager, "ins"
-        ,function () {
-            if (ResourceManager._ins == null)
-                ResourceManager._ins = new ResourceManager();
-            return ResourceManager._ins;
-        }
-    );
     /**
      * 加载图片
      * @param url 二级路径 前置的资源路径已设置
@@ -44,8 +42,8 @@ var ResourceManager = (function () {
         var self = ld.info;
         var url = ld.url;
         var loadArr = self._loadDic[url];
-        var bmp = ld.content;
-        var image = new CBitmapData(url, bmp.bitmapData);
+        var texture = ld.data;
+        var image = new CBitmapData(url, texture);
         self._images[url] = image;
         for (var i = 0; i < loadArr.length; i++) {
             var obj = loadArr[i];
@@ -68,24 +66,31 @@ var ResourceManager = (function () {
      */
     p.initLoopClear = function () {
         if (this._inited == false) {
-            // LoopManager.addToSecond("ImageRescourceLoop", gc);
+            LoopManager.addToSecond("ImageRescourceLoop", this.gc, this);
             this._inited = true;
         }
         else {
-            this.gc(true);
+            this.second = 300;
+            this.gc(this);
         }
     };
-    p.gc = function ($bool) {
-        if ($bool === void 0) { $bool = false; }
-        this.second++;
-        if (this.second >= 300 || $bool) {
-            this.second = 0;
-            var image;
-            var _imgaeDic1 = {};
-            var _imgaeDic2 = {};
+    p.gc = function (self) {
+        self.second++;
+        if (self.second <= 300)
+            return;
+        self.second = 0;
+        var image;
+        var _imgaeDic1 = {};
+        var _imgaeDic2 = {};
+        for (var url in self._images) {
+            var image = self._images[url];
+            image.dispose();
+            if (image.texture != null) {
+                _imgaeDic1[url] = image;
+            }
         }
+        self._images = _imgaeDic1;
     };
-    ResourceManager._ins = null;
     return ResourceManager;
 }());
 egret.registerClass(ResourceManager,'ResourceManager');

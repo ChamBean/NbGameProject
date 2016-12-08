@@ -11,7 +11,7 @@ class BaseRoleData {
 	public dress:number;
 	/**性别 0男1女*/
 	public sex:number;
-	/**类型*/
+	/**角色类型 参照RoleType类*/
 	public type:number;
 	/**等级*/
 	public level:number;
@@ -19,6 +19,10 @@ class BaseRoleData {
 	public dir:number;
 	/**玩家状态*/
 	public state:string;
-
-	public speed:number = 120;
+	/**玩家所处格子X坐标*/
+	public nodeX:number;
+	/**玩家所处格子Y坐标*/
+	public nodeY:number;
+	/**玩家行走速度*/
+	public speed:number = 160;
 }

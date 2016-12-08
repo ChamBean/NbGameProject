@@ -3,7 +3,7 @@ class BaseRole extends egret.DisplayObjectContainer{
 	protected _avatar:Avatar;
 	private _roleData:BaseRoleData;
 
-	private _startPoint:egret.Point = null;
+	protected _startPoint:egret.Point = null;
 
 	private _isMoving:boolean = false;
 	private _onlyKey:string = '';
@@ -29,32 +29,6 @@ class BaseRole extends egret.DisplayObjectContainer{
 		}
 	}
 
-	public randomMove():void
-	{
-		var arr:Array<egret.Point> = [];
-		var x:number = this.x;
-		var y:number = this.y;
-		var offX:number = Math.random() * 70 - 10;
-		var offY:number = Math.random() * 70 - 10;
-		for(var i:number = 0;i < 8;i++)
-		{
-			x += offX;
-			y += offY;
-			if(x < 50 || x > this.stage.stageWidth - 50){
-				offX = -offX;
-				x += offX;
-			}
-			if(y < 90 || y > this.stage.stageHeight - 90){
-				offY = -offY;
-				y += offY;
-			}
-			var point:egret.Point = new egret.Point(x,y);
-			arr.push(point);
-		}
-		this.startMove(arr);
-
-	}
-
 	public get isMoving():boolean
 	{
 		return this._isMoving;
@@ -76,7 +50,7 @@ class BaseRole extends egret.DisplayObjectContainer{
 		role.move();
 	}
 
-	private move():void
+	protected move():void
 	{
 		var curTime:number = egret.getTimer();
 		var moveTime:number = (curTime - this._startTime) / 1000;
@@ -91,37 +65,13 @@ class BaseRole extends egret.DisplayObjectContainer{
 				this.doNextMove();
 			}else
 			{
-				this.randomMove();
-				// this.normal();
+				if(this.runEndFunc){
+					this.runEndFunc();
+					this.runEndFunc = null;
+				}
+				this.doStandAct();
 			}
 		}
-	}
-
-	public stopMove():void
-	{
-		this.isMoving = false;
-		this.removePath();
-		this.doStandAct();
-	}
-	/**执行跑的动作 */
-	public doRunAct():void{
-		this._roleData.state = RoleState.ROLE_RUN;
-		this._avatar.upDataAct();
-	}
-	/**执行站立动作 */
-	private doStandAct():void{
-		this._targetPoint = null;
-		this._roleData.state = RoleState.ROLE_STAND;
-		this.isMoving = false;
-		this._avatar.upDataAct();
-	}
-
-	/**执行攻击动作 */
-	private doAttackAct():void{
-		this._targetPoint = null;
-		this._roleData.state = RoleState.ROLE_STAND;
-		this.isMoving = false;
-		this._avatar.upDataAct();
 	}
 
 	private removePath():void
@@ -129,23 +79,24 @@ class BaseRole extends egret.DisplayObjectContainer{
 		if(this._movePaths && this._movePaths.length > 0)
 			this._movePaths.length = 0;
 	}
-
-	private _movePaths:Array<egret.Point>;
-	public startMove(paths:Array<egret.Point>):void{
+	protected runEndFunc:Function = null;
+	protected _movePaths:Array<egret.Point>;
+	public startMove(paths:Array<egret.Point>,func:Function=null):void{
 		this._movePaths = paths;
 		if(paths.length == 0){
 			this.doStandAct();
 		}
 		else{
+			this.runEndFunc = func;
 			this.doNextMove();
 		}
 	}
-	private _targetPoint:egret.Point;
-	private _curSpeedX:number;
-	private _curSpeedY:number;
-	private _startTime:number;
-	private _endTime:number;
-	private doNextMove():void{
+	protected _targetPoint:egret.Point;
+	protected _curSpeedX:number;
+	protected _curSpeedY:number;
+	protected _startTime:number;
+	protected _endTime:number;
+	protected doNextMove():void{
 		this.isMoving = true;
 		var paths = this._movePaths;
 		if(paths != null && paths.length > 0)
@@ -171,6 +122,33 @@ class BaseRole extends egret.DisplayObjectContainer{
 			this._endTime = this._startTime + Math.floor(moveTime * 1000);
 			this.doRunAct();
 		}
+	}
+
+	public stopMove():void
+	{
+		this.isMoving = false;
+		this.removePath();
+		this.doStandAct();
+	}
+	/**执行跑的动作 */
+	protected doRunAct():void{
+		this._roleData.state = RoleState.ROLE_RUN;
+		this._avatar.upDataAct();
+	}
+	/**执行站立动作 */
+	protected doStandAct():void{
+		this._targetPoint = null;
+		this._roleData.state = RoleState.ROLE_STAND;
+		this.isMoving = false;
+		this._avatar.upDataAct();
+	}
+
+	/**执行攻击动作 */
+	protected doAttackAct():void{
+		this._targetPoint = null;
+		this._roleData.state = RoleState.ROLE_ATTACK;
+		this.isMoving = false;
+		this._avatar.upDataAct();
 	}
 
 	private getDirection(tarPoint:egret.Point):number{
@@ -207,7 +185,9 @@ class BaseRole extends egret.DisplayObjectContainer{
 			this.parent.removeChild(this);
 		this.isMoving = false;
 		this._roleData = null;
-		// this._avatar.
+		this._avatar.clear();
+		this.runEndFunc = null;
+		this.removePath();
 	}
 
 }

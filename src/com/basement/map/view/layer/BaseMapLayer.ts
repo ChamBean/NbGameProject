@@ -6,4 +6,8 @@ class BaseMapLayer extends egret.DisplayObjectContainer {
 	public constructor() {
 		super();
 	}
+
+	public clear():void{
+		
+	}
 }

@@ -1,25 +1,25 @@
 class CBitmapData {
 	private _count:number = 0;
-	private _bitmapData:egret.BitmapData;
+	private _texture:egret.Texture;
 	private _url:String;
 	private _lastTime:number;
-	public constructor(url:String,value:egret.BitmapData) {
-		this._bitmapData = value;
+	public constructor(url:String,value:egret.Texture) {
+		this._texture = value;
 		this._url = url;
 	}
 
 	public get width():number
 		{
-			if(this._bitmapData == null)
+			if(this._texture == null)
 				return 0;
-			return this._bitmapData.width;
+			return this._texture.bitmapData.width;
 		}
 		
 		public get height():number
 		{
-			if(this._bitmapData == null)
+			if(this._texture == null)
 				return 0;
-			return this._bitmapData.height;
+			return this._texture.bitmapData.height;
 		}
 		
 		public count(isUse:Boolean = true):void
@@ -47,9 +47,9 @@ class CBitmapData {
 		 * 获取一次图片就+1次数
 		 * @return 
 		 */		
-		public get bitmapData():egret.BitmapData
+		public get texture():egret.Texture
 		{
-			return this._bitmapData;
+			return this._texture;
 		}
 		
 		public dispose():void
@@ -58,11 +58,11 @@ class CBitmapData {
 			{
 				return;
 			}
-			// if (LoopManager.currentTime - _lastTime < 30000)
-			// {
-			// 	return;
-			// }
-			// this._bitmapData.dispose();
-			this._bitmapData = null;
+			if (LoopManager.currentTime - this._lastTime < 30000)
+			{
+				return;
+			}
+			this._texture.dispose();
+			this._texture = null;
 		}
 }

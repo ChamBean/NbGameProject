@@ -24,9 +24,9 @@ class MapDataConvert {
 		 * @return MapVO
 		 * 
 		 */
-		private convertMapVO(byte:ArrayBuffer):MapVo
+		private convertMapVO(arrBuff:ArrayBuffer):MapVo
 		{
-			var bytes:egret.ByteArray = new egret.ByteArray(byte);
+			var bytes:egret.ByteArray = new egret.ByteArray(arrBuff);
 			if(this.mapdata == null)
 			{
 				this.mapdata = new MapVo();
@@ -36,7 +36,7 @@ class MapDataConvert {
 			}
 			var mapvo:MapVo = this.mapdata;
 			bytes.position = 4 ;
-			mapvo.version = bytes.readFloat();
+			mapvo.version = bytes.readFloat() ;
 			var len:number = bytes.readInt(); //特效的数组长度
 			
 			bytes.position = 42 ;						
@@ -48,7 +48,7 @@ class MapDataConvert {
 			
 			mapvo.nodeArray = [];
 			mapvo.doors = [];
-			var node:Node;
+			var node:MapNode;
 			
 			for(var i:number = 0 ; i < mapvo.col ; i++ ){
 				
@@ -59,15 +59,15 @@ class MapDataConvert {
 						mapvo.nodeArray[j] = [] ;
 					
 					var buffer:number = bytes.readByte() ;
-					var travel:Boolean = Boolean( buffer & 1 )  ;	//可行走
-					var isMask:Boolean = Boolean( buffer & ( 1 << 4 ) )  ;	//是否为遮罩
+					var travel:boolean = (buffer & 1) > 0 ? true:false;	//可行走
+					var isMask:boolean =  (buffer & ( 1 << 4 )) > 0 ? true:false;	//是否为遮罩
 					
-					var swim:Boolean = Boolean(buffer & (1 << 1)) ;	//是否传送点	
+					var swim:boolean = (buffer & (1 << 1)) > 0 ? true:false;	//是否传送点	
 					//以下4变量未开发对应的功能
-//					var telepoter:Boolean = Boolean(buffer & (1 << 2)) ;	//是否传送点	
-//					var stall:Boolean = Boolean(buffer & (1 << 5)) ;		//摆摊区
-//					var pkzone:Boolean = Boolean(buffer & (1 << 6)) ;		//擂台区
-					var safeArea:Boolean = Boolean(buffer & (1 << 3)) ;		//安全区
+//					var telepoter:boolean = boolean(buffer & (1 << 2)) ;	//是否传送点	
+//					var stall:boolean = boolean(buffer & (1 << 5)) ;		//摆摊区
+//					var pkzone:boolean = boolean(buffer & (1 << 6)) ;		//擂台区
+					var safeArea:boolean = (buffer & (1 << 3)) > 0 ? true:false;		//安全区
 					
 					var mark:number = 0 ;
 					if(travel)
@@ -88,15 +88,16 @@ class MapDataConvert {
 //						p.x = i;
 //						mapvo.doors.push(p);
 //					}
-					// node = Node.getNode();
-					// node.x = i;
-					// node.y = j;
-					// node.isMask = isMask;
-					// node.isSwim = swim;
-					// node.walkAble = travel;
-					// node.isSafe = safeArea;
-					// mapvo.nodeArray[j][i] = node;
+					node = MapNode.getNode();
+					node.x = i;
+					node.y = j;
+					node.isMask = isMask;
+					node.isSwim = swim;
+					node.walkAble = travel;
+					node.isSafe = safeArea;
+					mapvo.nodeArray[j][i] = node;
 					bytes.position += 1 ;
+					
 				}
 			}
 			
@@ -120,9 +121,7 @@ class MapDataConvert {
 				
 				for(j = 0 ; j < tileCol ; j++)
 				{
-					//Arrpg的地图切片是由1开始的, 因此需要在计算出来后+1
-					var num:number = (tileCol * i + j + 1);
-					mapvo.tileArray[i][j] = num.toString() + ".jpg";
+					mapvo.tileArray[i][j] = j + '_' + i + ".jpg";
 				}
 			}
 			
@@ -132,7 +131,7 @@ class MapDataConvert {
 			{
 				for(i = 0;i < len;i++)
 				{
-					var spVo:MapEffectVo = new MapEffectVo;
+					var spVo:MapEffectVo = new MapEffectVo();
 					spVo.tempID = i;
 					spVo.sid = bytes.readInt();
 					spVo.sx = bytes.readShort();

@@ -1,0 +1,4 @@
+class GlobUrl {
+	public constructor() {
+	}
+}

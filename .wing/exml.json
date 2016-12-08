@@ -1,0 +1,22 @@
+{
+    "158d72e4978": {
+        "path": "com\\basement\\Ui\\component\\Window.ts",
+        "class": "Window",
+        "parentPath": ""
+    },
+    "158d74197f2": {
+        "path": "com\\basement\\Ui\\component\\UiWindow.ts",
+        "class": "UiWindow",
+        "parentPath": "resource/custom_skins/Window.exml"
+    },
+    "158d748b2d3": {
+        "path": "com\\basement\\Ui\\view\\BaseView.ts",
+        "class": "BaseView",
+        "parentPath": ""
+    },
+    "158d7eae2cf": {
+        "path": "com\\game\\module\\createRole\\CreateRoleView.ts",
+        "class": "CreateRoleView",
+        "parentPath": ""
+    }
+}

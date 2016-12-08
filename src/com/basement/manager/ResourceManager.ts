@@ -1,19 +1,16 @@
+/**
+ * 所有图片资源加载管理器
+ * @author Bean
+ * @since 2016.12.04
+ */
 class ResourceManager {
 	private _loadDic:any;
 	private _images:any;
 	private _inited:boolean = false;
 	private second:number = 0;
-	private static _ins:ResourceManager = null;
 	public constructor() {
 		this._images = {};
 		this._loadDic = {};
-	}
-
-	public static get ins():ResourceManager
-	{
-		if(ResourceManager._ins == null)
-			ResourceManager._ins = new ResourceManager();
-		return ResourceManager._ins;
 	}
 
 	/**
@@ -49,8 +46,8 @@ class ResourceManager {
 		var self:ResourceManager = ld.info;
 		var url:string = ld.url;
 		var loadArr:Array<any> = self._loadDic[url];
-		var bmp:egret.Bitmap = ld.content;
-		var image:CBitmapData = new CBitmapData(url,bmp.bitmapData);
+		var texture:egret.Texture = ld.data;
+		var image:CBitmapData = new CBitmapData(url,texture);
 		self._images[url] = image;
 		for(var i:number = 0;i < loadArr.length;i++)
 		{
@@ -81,41 +78,32 @@ class ResourceManager {
 	{
 		if (this._inited == false)
 		{
-			// LoopManager.addToSecond("ImageRescourceLoop", gc);
+			LoopManager.addToSecond("ImageRescourceLoop",this.gc,this);
 			this._inited = true;
 		}else
 		{
-			this.gc(true);
+			this.second = 300;
+			this.gc(this);
 		}
 	}
 	
-	private gc($bool:Boolean = false):void
+	private gc(self:ResourceManager):void
 	{
-		this.second++;
-		if (this.second >= 300 ||$bool)
-		{
-			this.second = 0;
-			var image:CBitmapData;
-			var _imgaeDic1:any = {};
-			var _imgaeDic2:any = {};
-			// for each(image:CBitmapData in this._images)
-			// {
-			// 	image.dispose();
-			// 	if(image.bitmapData !=null)
-			// 	{
-			// 		_imgaeDic1[image.url] = image;
-			// 	}
-			// }
-			// for each(image in _imgNames)
-			// {
-			// 	image.dispose();
-			// 	if(image.bitmapData !=null)
-			// 	{
-			// 		_imgaeDic2[image.url] = image;
-			// 	}
-			// }
-			// _images = _imgaeDic1;
-			// _imgNames = _imgaeDic2;
+		self.second++;
+		if(self.second <= 300)
+			return;
+		self.second = 0;
+		var image:CBitmapData;
+		var _imgaeDic1:any = {};
+		var _imgaeDic2:any = {};
+		for(var url in self._images){
+			var image:CBitmapData = self._images[url];
+			image.dispose();
+			if(image.texture != null)
+			{
+				_imgaeDic1[url] = image;
+			}
 		}
+		self._images = _imgaeDic1;
 	}
 }

@@ -1,3 +1,5 @@
+declare class UiWindowSkin extends eui.Skin{
+}
 declare module skins{
 	class ButtonSkin extends eui.Skin{
 	}
@@ -5,6 +7,8 @@ declare module skins{
 declare module skins{
 	class CheckBoxSkin extends eui.Skin{
 	}
+}
+declare class CreateRoleViewSkin extends eui.Skin{
 }
 declare module skins{
 	class HScrollBarSkin extends eui.Skin{

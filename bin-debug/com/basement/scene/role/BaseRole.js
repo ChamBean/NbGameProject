@@ -5,6 +5,7 @@ var BaseRole = (function (_super) {
         this._startPoint = null;
         this._isMoving = false;
         this._onlyKey = '';
+        this.runEndFunc = null;
         BaseRole._index++;
         this._onlyKey = 'baseRole' + BaseRole._index;
         this._startPoint = new egret.Point(0, 0);
@@ -26,28 +27,6 @@ var BaseRole = (function (_super) {
             }
         }
     );
-    p.randomMove = function () {
-        var arr = [];
-        var x = this.x;
-        var y = this.y;
-        var offX = Math.random() * 70 - 10;
-        var offY = Math.random() * 70 - 10;
-        for (var i = 0; i < 8; i++) {
-            x += offX;
-            y += offY;
-            if (x < 50 || x > this.stage.stageWidth - 50) {
-                offX = -offX;
-                x += offX;
-            }
-            if (y < 90 || y > this.stage.stageHeight - 90) {
-                offY = -offY;
-                y += offY;
-            }
-            var point = new egret.Point(x, y);
-            arr.push(point);
-        }
-        this.startMove(arr);
-    };
     d(p, "roleData"
         ,function () {
             return this._roleData;
@@ -74,44 +53,26 @@ var BaseRole = (function (_super) {
                 this.doNextMove();
             }
             else {
-                this.randomMove();
+                if (this.runEndFunc) {
+                    this.runEndFunc();
+                    this.runEndFunc = null;
+                }
+                this.doStandAct();
             }
         }
-    };
-    p.stopMove = function () {
-        this.isMoving = false;
-        this.removePath();
-        this.doStandAct();
-    };
-    /**执行跑的动作 */
-    p.doRunAct = function () {
-        this._roleData.state = RoleState.ROLE_RUN;
-        this._avatar.upDataAct();
-    };
-    /**执行站立动作 */
-    p.doStandAct = function () {
-        this._targetPoint = null;
-        this._roleData.state = RoleState.ROLE_STAND;
-        this.isMoving = false;
-        this._avatar.upDataAct();
-    };
-    /**执行攻击动作 */
-    p.doAttackAct = function () {
-        this._targetPoint = null;
-        this._roleData.state = RoleState.ROLE_STAND;
-        this.isMoving = false;
-        this._avatar.upDataAct();
     };
     p.removePath = function () {
         if (this._movePaths && this._movePaths.length > 0)
             this._movePaths.length = 0;
     };
-    p.startMove = function (paths) {
+    p.startMove = function (paths, func) {
+        if (func === void 0) { func = null; }
         this._movePaths = paths;
         if (paths.length == 0) {
             this.doStandAct();
         }
         else {
+            this.runEndFunc = func;
             this.doNextMove();
         }
     };
@@ -139,6 +100,30 @@ var BaseRole = (function (_super) {
             this._endTime = this._startTime + Math.floor(moveTime * 1000);
             this.doRunAct();
         }
+    };
+    p.stopMove = function () {
+        this.isMoving = false;
+        this.removePath();
+        this.doStandAct();
+    };
+    /**执行跑的动作 */
+    p.doRunAct = function () {
+        this._roleData.state = RoleState.ROLE_RUN;
+        this._avatar.upDataAct();
+    };
+    /**执行站立动作 */
+    p.doStandAct = function () {
+        this._targetPoint = null;
+        this._roleData.state = RoleState.ROLE_STAND;
+        this.isMoving = false;
+        this._avatar.upDataAct();
+    };
+    /**执行攻击动作 */
+    p.doAttackAct = function () {
+        this._targetPoint = null;
+        this._roleData.state = RoleState.ROLE_ATTACK;
+        this.isMoving = false;
+        this._avatar.upDataAct();
     };
     p.getDirection = function (tarPoint) {
         var tarX = tarPoint.x;
@@ -172,7 +157,9 @@ var BaseRole = (function (_super) {
             this.parent.removeChild(this);
         this.isMoving = false;
         this._roleData = null;
-        // this._avatar.
+        this._avatar.clear();
+        this.runEndFunc = null;
+        this.removePath();
     };
     BaseRole._index = 0;
     return BaseRole;

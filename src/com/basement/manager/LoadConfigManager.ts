@@ -1,15 +1,12 @@
+/**
+ * 所有文本配置加载管理器
+ * @author Bean
+ * @since 2016.12.04
+ */
 class LoadConfigManager {
-	private static _ins:LoadConfigManager = null;
 
 	private _loadDic:any;
 	private _configs:any;
-
-	public static get ins():LoadConfigManager
-	{
-		if(LoadConfigManager._ins == null)
-			LoadConfigManager._ins = new LoadConfigManager();
-		return LoadConfigManager._ins;
-	}
 
 	public constructor() {
 		this._configs = {};
@@ -39,9 +36,9 @@ class LoadConfigManager {
 	{
 		var url:string = ld.url;
 		var self:LoadConfigManager = ld.info;
-		var loadArr:Array<any> = LoadConfigManager.ins._loadDic[url];
+		var loadArr:Array<any> = self._loadDic[url];
 		var config:any = ld.data;
-		LoadConfigManager.ins._configs[url] = config;
+		self._configs[url] = config;
 		for(var i:number = 0;i < loadArr.length;i++)
 		{
 			var obj:any = loadArr[i];

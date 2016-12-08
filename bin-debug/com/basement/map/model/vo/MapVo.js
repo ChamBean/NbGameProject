@@ -7,28 +7,15 @@ var MapVo = (function () {
         this.version = 0; //版本号
     }
     var d = __define,c=MapVo,p=c.prototype;
-    // public startNode:Node;
-    // public endNode:Node;
     p.dispose = function () {
-        // if (this.nodeArray != null) 
-        // {
-        // 	for each(var a:Array in this.nodeArray) 
-        // 	{
-        // 		for each(var n:Node in a) 
-        // 		{
-        // 			n.dispose();
-        // 		}
-        // 	}
-        // 	nodeArray = null;
-        // }
-    };
-    p.nodesRest = function () {
-        //			
-        //			for each(var a:Array in nodeArray) {
-        //				for each(var n:Node in a) {
-        //					if (n.visited) n.visited = false;
-        //				}
-        //			}
+        if (this.nodeArray != null) {
+            for (var i = 0; i < this.nodeArray.length; i++) {
+                for (var j = 0; j < this.nodeArray[i].length; j++) {
+                    this.nodeArray[i][j].dispose();
+                }
+            }
+            this.nodeArray = null;
+        }
     };
     /**
      * 通过实际坐标点, 获得格子
@@ -43,6 +30,8 @@ var MapVo = (function () {
         return this.getNode(x, y);
     };
     p.getNode = function (px, py) {
+        px = Math.floor(px);
+        py = Math.floor(py);
         if (py >= 0 && px >= 0 && py < this.row && px < this.col) {
             return this.nodeArray[py][px];
         }
@@ -61,8 +50,8 @@ var MapVo = (function () {
         if (p == null) {
             p = new egret.Point(0, 0);
         }
-        // p.x = (node.x + 0.5) * MapConfig.MAP_NODE_WIDTH;
-        // p.y = (node.y + 0.5) * MapConfig.MAP_NODE_HEIGHT;
+        p.x = (node.x + 0.5) * MapConfig.MAP_NODE_WIDTH;
+        p.y = (node.y + 0.5) * MapConfig.MAP_NODE_HEIGHT;
         return p;
     };
     /**

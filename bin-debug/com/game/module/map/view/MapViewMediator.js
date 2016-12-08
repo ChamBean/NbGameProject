@@ -1,3 +1,8 @@
+/**
+ * 场景视图集结中心
+ * @author Bean
+ * @since 2016.12.04
+ */
 var MapViewMediator = (function () {
     function MapViewMediator(parent) {
         this._mapBackLayer = null;
@@ -20,6 +25,46 @@ var MapViewMediator = (function () {
         this._map.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onMapClick, this);
     };
     p.onMapClick = function (e) {
+        SceneManager.ins.ClickMap(e.localX, e.localY);
+    };
+    d(p, "map"
+        ,function () {
+            return this._map;
+        }
+    );
+    d(p, "backLayer"
+        ,function () {
+            return this._mapBackLayer;
+        }
+    );
+    d(p, "effectLayer"
+        ,function () {
+            return this._mapEffectLayer;
+        }
+    );
+    d(p, "avatarLayer"
+        ,function () {
+            return this._mapAvatarLayer;
+        }
+    );
+    p.createMyRole = function (data) {
+        var role = new Player();
+        role.isSelf = true;
+        data.dir = 4; //Math.floor(Math.random() * 7);
+        data.dress = 0;
+        var index = Math.floor(Math.random() * 3.9);
+        var obj = RoleState.STATES;
+        var state = obj[index];
+        data.state = RoleState.ROLE_STAND;
+        data.nodeX = Math.floor(Math.random() * 22) + 22;
+        data.nodeY = Math.floor(Math.random() * 22) + 22;
+        role.setRoleData(data);
+        return role;
+    };
+    p.clear = function () {
+        this._mapBackLayer.clear();
+        this._mapEffectLayer.clear();
+        this._mapAvatarLayer.clear();
     };
     return MapViewMediator;
 }());

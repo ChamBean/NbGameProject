@@ -1,16 +1,14 @@
+/**
+ * 所有文本配置加载管理器
+ * @author Bean
+ * @since 2016.12.04
+ */
 var LoadConfigManager = (function () {
     function LoadConfigManager() {
         this._configs = {};
         this._loadDic = {};
     }
     var d = __define,c=LoadConfigManager,p=c.prototype;
-    d(LoadConfigManager, "ins"
-        ,function () {
-            if (LoadConfigManager._ins == null)
-                LoadConfigManager._ins = new LoadConfigManager();
-            return LoadConfigManager._ins;
-        }
-    );
     p.getConfig = function (url, funs, data, property, progressHandler) {
         if (data === void 0) { data = null; }
         if (property === void 0) { property = 0; }
@@ -33,9 +31,9 @@ var LoadConfigManager = (function () {
     p.onConfigComplete = function (ld) {
         var url = ld.url;
         var self = ld.info;
-        var loadArr = LoadConfigManager.ins._loadDic[url];
+        var loadArr = self._loadDic[url];
         var config = ld.data;
-        LoadConfigManager.ins._configs[url] = config;
+        self._configs[url] = config;
         for (var i = 0; i < loadArr.length; i++) {
             var obj = loadArr[i];
             var param = { cfg: config, data: obj.data, url: url };
@@ -44,7 +42,6 @@ var LoadConfigManager = (function () {
         self._loadDic[url] = null;
         delete self._loadDic[url];
     };
-    LoadConfigManager._ins = null;
     return LoadConfigManager;
 }());
 egret.registerClass(LoadConfigManager,'LoadConfigManager');

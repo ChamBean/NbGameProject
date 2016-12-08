@@ -1,22 +1,22 @@
 class LoopManager {
 
 	private static _isInited:boolean = false;
-	private static _currentFrame:number;
-	private static _currentTime:number;
-	private static _curTime:number;
-	private static lastTime:number;
+	private static _currentFrame:number = 0;
+	private static _currentTime:number = 0;
+	private static _curTime:number = 0;
+	private static lastTime:number = 0;
 	private static _realFrameRate:number = 30;
 	private static frameLoopDic:any;
-	private static _timeTime:number;
-	private static _secondTime:number;
+	private static _timeTime:number = 0;
+	private static _secondTime:number = 0;
 	private static timeoutDic:any;
 	private static timeLoopDic:any;
-	private static delayIDKey:number;
+	private static delayIDKey:number = 0;
 	private static secondLoopDic:any;
 	private static stage:egret.Stage;
 	private static _frameHold:number = 30;
-	private static secFrames:number;
-	private static frameTime:number;
+	private static secFrames:number = 0;
+	private static frameTime:number = 0;
 
 	public constructor() {
 	}
@@ -109,7 +109,7 @@ class LoopManager {
 		 * 添加一个enterFrame监听
 		 * @param event
 		 */	
-        public static addToFrame(loopKey:string, loopFun:Function,params:any) : void
+        public static addToFrame(loopKey:string, loopFun:Function,params:any=null) : void
         {
 			var dic:any = LoopManager.frameLoopDic;
 			if(dic[loopKey] == null)
@@ -261,18 +261,18 @@ class LoopManager {
 
         private static doFrameRate() : void
         {
-			 LoopManager._currentFrame++;
-			 LoopManager._curTime = egret.getTimer();
+			LoopManager._currentFrame++;
+			LoopManager._curTime = egret.getTimer();
 			LoopManager._currentTime =  LoopManager._curTime;
-             LoopManager._frameHold =  LoopManager._curTime -  LoopManager.lastTime;
-             LoopManager.lastTime =  LoopManager._curTime;
-			 LoopManager.secFrames++;
-            if ( LoopManager._curTime -  LoopManager.frameTime >= 1000)
-            {
-                LoopManager._realFrameRate = LoopManager.secFrames;
-                 LoopManager.frameTime =  LoopManager._curTime;
-                 LoopManager.secFrames = 0;
-            }
+			LoopManager._frameHold =  LoopManager._curTime -  LoopManager.lastTime;
+			LoopManager.lastTime =  LoopManager._curTime;
+			LoopManager.secFrames++;
+			if ( LoopManager._curTime -  LoopManager.frameTime >= 1000)
+			{
+				LoopManager._realFrameRate = LoopManager.secFrames;
+				LoopManager.frameTime =  LoopManager._curTime;
+				LoopManager.secFrames = 0;
+			}
             return;
         }
 

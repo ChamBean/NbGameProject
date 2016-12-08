@@ -58,6 +58,13 @@ var LoadManager = (function () {
         loadInfo.loadType = LoadInfo.BYTE;
         this.load(loadInfo);
     };
+    p.clearLoad = function (url) {
+        var loadArr = this._loadMapByUrl[url];
+        if (loadArr != null) {
+            loadArr = null;
+            delete this._loadMapByUrl[url];
+        }
+    };
     p.load = function (info) {
         if (info == null)
             return;
@@ -141,6 +148,10 @@ var LoadManager = (function () {
         var loader = e.target;
         var info = loader.loadInfo;
         var loadArr = this._loadMapByUrl[info.url];
+        if (loadArr == null) {
+            this.recrycleLoad(loader);
+            return;
+        }
         this._loadMapByUrl[info.url] = null;
         delete this._loadMapByUrl[info.url];
         this.recrycleLoad(loader);

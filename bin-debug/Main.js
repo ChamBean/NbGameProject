@@ -82,6 +82,13 @@ var Main = (function (_super) {
      */
     p.onResourceLoadComplete = function (event) {
         if (event.groupName == "preload") {
+            RES.loadGroup("common");
+        }
+        else if (event.groupName == 'common') {
+            // this.stage.removeChild(this.loadingView);
+            RES.loadGroup("cjjs");
+        }
+        else if (event.groupName == 'cjjs') {
             this.stage.removeChild(this.loadingView);
             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
@@ -119,9 +126,9 @@ var Main = (function (_super) {
      * loading process of preload resource
      */
     p.onResourceProgress = function (event) {
-        if (event.groupName == "preload") {
-            this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
-        }
+        this.loadingView.setProgress(event.groupName, event.itemsLoaded, event.itemsTotal);
+        // if (event.groupName == "preload") {
+        // }
     };
     /**
      * 创建场景界面
@@ -129,8 +136,8 @@ var Main = (function (_super) {
      */
     p.startCreateScene = function () {
         //    this.stage.scaleMode = egret.StageScaleMode.NO_SCALE;
-        var controlManager = new ControllerManager();
-        controlManager.startModule();
+        var module = new ModuleManager();
+        module.startModule();
         //    this.onResizeHandler(null);
         //    this.stage.addEventListener(egret.Event.RESIZE,this.onResizeHandler,this)
     };

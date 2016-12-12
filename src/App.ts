@@ -12,6 +12,7 @@ class App {
 	public resManager:ResourceManager = null;
 	public configManager:LoadConfigManager = null;
 	public moduleManager:ModuleManager;
+	public socket:net.SocketManager = null;
 	public init(stage:egret.Stage):void{
 		this.stage = stage;
 		LoopManager.init(stage);

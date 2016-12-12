@@ -1,9 +1,15 @@
 class UiWindow extends eui.Component implements  eui.UIComponent {
 	public closeBtn:eui.Button;
+	public backImg:eui.Image;
 	public constructor() {
 		super();
 		this.addEventListener(eui.UIEvent.CREATION_COMPLETE,this.createComplete,this);
 	}
+
+	// public set width(value:number){
+	// 	this.width = value;
+	// 	this.backImg.width = value;
+	// }
 
 	protected createComplete(e:eui.UIEvent):void{
 		this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.closePanel,this);

@@ -1,1 +1,1 @@
-{"version":3,"file":"BaseRoleData.js","sourceRoot":"","sources":["../../../../../../src/com/basement/scene/role/data/BaseRoleData.ts"],"names":[],"mappings":"AAAA;IACC;QAwBA,WAAW;QACJ,UAAK,GAAU,GAAG,CAAC;IAxB1B,CAAC;;IAyBF,mBAAC;AAAD,CAAC,AA3BD,IA2BC;oBA3BK,YAAY;AA2BjB"}
+{"version":3,"file":"BaseRoleData.js","sourceRoot":"","sources":["../../../../../../src/com/basement/scene/role/data/BaseRoleData.ts"],"names":[],"mappings":"AAAA;IACC;QAcA,OAAO;QACA,UAAK,GAAU,EAAE,CAAC;QASzB,WAAW;QACJ,UAAK,GAAU,GAAG,CAAC;IAxB1B,CAAC;;IAyBF,mBAAC;AAAD,CAAC,AA3BD,IA2BC;oBA3BK,YAAY;AA2BjB"}

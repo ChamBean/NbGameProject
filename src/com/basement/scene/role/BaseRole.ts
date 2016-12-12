@@ -1,3 +1,8 @@
+/**
+ * 场景角色基类
+ * @author Bean
+ * @since 2016.12.04
+ */
 class BaseRole extends egret.DisplayObjectContainer{
 	private static _index:number = 0;
 	protected _avatar:Avatar;
@@ -5,8 +10,8 @@ class BaseRole extends egret.DisplayObjectContainer{
 
 	protected _startPoint:egret.Point = null;
 
-	private _isMoving:boolean = false;
-	private _onlyKey:string = '';
+	protected _isMoving:boolean = false;
+	protected _onlyKey:string = '';
 	public constructor() {
 		super();
 		BaseRole._index++;
@@ -43,7 +48,7 @@ class BaseRole extends egret.DisplayObjectContainer{
 		this._avatar.setAvatarData(roleData);
 	}
 
-	private loop(role:BaseRole):void
+	protected loop(role:BaseRole):void
 	{
 		if(!role._isMoving)
 			return;
@@ -87,6 +92,7 @@ class BaseRole extends egret.DisplayObjectContainer{
 			this.doStandAct();
 		}
 		else{
+			this.isMoving = true;
 			this.runEndFunc = func;
 			this.doNextMove();
 		}
@@ -97,7 +103,6 @@ class BaseRole extends egret.DisplayObjectContainer{
 	protected _startTime:number;
 	protected _endTime:number;
 	protected doNextMove():void{
-		this.isMoving = true;
 		var paths = this._movePaths;
 		if(paths != null && paths.length > 0)
 		{

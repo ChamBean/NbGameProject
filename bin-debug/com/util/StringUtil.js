@@ -3,11 +3,11 @@ var StringUtil = (function () {
     }
     var d = __define,c=StringUtil,p=c.prototype;
     /**
-         * 数据转Boolean类型
+         * 数据转boolean类型
          * @param obj
          * @return
          */
-    StringUtil.toBoolean = function (obj) {
+    StringUtil.toboolean = function (obj) {
         if (obj == null) {
             return false;
         }
@@ -26,13 +26,9 @@ var StringUtil = (function () {
      *
      */
     StringUtil.getDay = function ($startTime, $endTime) {
-        // Date.parse()
-        // var date:DateConstructor = new DateConstructor();
-        // date.time = $startTime*1000;
-        // var date2:Date = new Date(date.fullYear,date.month,date.date);
-        // var openTime:number = date2.time/1000;
-        // var days:number = Math.ceil(($endTime - openTime)/86400);
+        // Math
         return 0;
+        // Date.
     };
     /**
      * 把数字转成  1000->1,000

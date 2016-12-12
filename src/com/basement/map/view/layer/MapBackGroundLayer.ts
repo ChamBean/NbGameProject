@@ -7,11 +7,48 @@ class MapBackGroundLayer extends BaseMapLayer {
 	/**同时存在最大切片数 */
 	private static MAX_CLIP_NUM:number = 60;
 	private _markBmp:egret.Bitmap = null;
+
+	private _nodeLayer:egret.Shape;
 	public constructor() {
 		super();
 		this._markBmp = new egret.Bitmap();
 		this.addChild(this._markBmp);
 	}
+
+	public drawNodes(mapData:MapVo):void 
+		{
+			if(this._nodeLayer == null)
+			{
+				this._nodeLayer = new egret.Shape();
+			}
+			if(this._nodeLayer.parent){
+				this.parent.removeChild(this._nodeLayer);
+				return;
+			}
+			this.parent.addChild(this._nodeLayer);
+			this._nodeLayer.graphics.clear();
+			if(!mapData)
+				return;
+			
+			for(var y:number = 0 ; y < mapData.row; y++)
+			{
+				for(var x:number = 0;x < mapData.col; x++)
+				{
+					var go:boolean = mapData.getNode(x,y).walkAble;
+					var isMask:Boolean = mapData.getNode(x,y).isMask;
+					var color:number = 0xFF0000;
+					if(go)
+					{
+						color = isMask? 0x00FF00 : 0xFFFFFF;
+					}
+					var alpha:number = color == 0xFFFFFF ? 0 : 0.6;
+					this._nodeLayer.graphics.beginFill(color,alpha);
+					this._nodeLayer.graphics.lineStyle(1,0x666666,1);
+					this._nodeLayer.graphics.drawRect(MapConfig.MAP_NODE_WIDTH*x,MapConfig.MAP_NODE_HEIGHT*y,MapConfig.MAP_NODE_WIDTH,MapConfig.MAP_NODE_HEIGHT);
+					this._nodeLayer.graphics.endFill();
+				}
+			}
+		}
 
 	public setMark(texture:egret.Texture,mw:number,mh:number):void
 	{
@@ -70,6 +107,13 @@ class MapBackGroundLayer extends BaseMapLayer {
 
 	public clear():void
 	{
+		if(this._nodeLayer)
+		{
+			this._nodeLayer.graphics.clear();
+			if(this._nodeLayer.parent)
+				this.parent.removeChild(this._nodeLayer);
+			this._nodeLayer = null;
+		}
 		for(var url in this._hasClips)
 		{
 			var bmp:egret.Bitmap = this._hasClips[url];

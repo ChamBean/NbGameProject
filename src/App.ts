@@ -1,3 +1,8 @@
+/**
+ * 应用内各种单例类管理中心
+ * @author Bean
+ * @since 2016.12.04
+ */
 class App {
 	public constructor() {
 	}
@@ -6,7 +11,7 @@ class App {
 	public layer:LayerManager;
 	public resManager:ResourceManager = null;
 	public configManager:LoadConfigManager = null;
-
+	public moduleManager:ModuleManager;
 	public init(stage:egret.Stage):void{
 		this.stage = stage;
 		LoopManager.init(stage);

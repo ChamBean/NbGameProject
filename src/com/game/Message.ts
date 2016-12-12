@@ -56,8 +56,8 @@ class MessageItem extends egret.DisplayObjectContainer{
 			if(MessageItem._pools == null)
 				MessageItem._pools = new Array();
 			this._msgBackImg = new eui.Image();
-			this._msgBackImg.texture = RES.getRes('wing_08-bg_png');
-			this._msgBackImg.scale9Grid = new egret.Rectangle(40,7,400,100);
+			this._msgBackImg.texture = RES.getRes('zjm_11');
+			this._msgBackImg.scale9Grid = new egret.Rectangle(5,5,5,5);
 			// this._msgBackImg.width = 100;
 			// this._msgBackImg.height = 40;
 			this.addChild(this._msgBackImg);

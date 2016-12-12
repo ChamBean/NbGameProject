@@ -5,6 +5,10 @@ var UiWindow = (function (_super) {
         this.addEventListener(eui.UIEvent.CREATION_COMPLETE, this.createComplete, this);
     }
     var d = __define,c=UiWindow,p=c.prototype;
+    // public set width(value:number){
+    // 	this.width = value;
+    // 	this.backImg.width = value;
+    // }
     p.createComplete = function (e) {
         this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.closePanel, this);
     };

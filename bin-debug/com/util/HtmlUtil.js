@@ -6,6 +6,10 @@ var HtmlUtil = (function () {
         var textflowArr = HtmlUtil.htmlParser.parser(str);
         return textflowArr;
     };
+    p.test = function () {
+        // Date.UTC()
+        // var reg:RegExp = new RegExp();RegExp.$5
+    };
     HtmlUtil.htmlParser = new egret.HtmlTextParser();
     return HtmlUtil;
 }());

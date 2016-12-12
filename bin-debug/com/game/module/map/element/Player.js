@@ -5,6 +5,7 @@ var Player = (function (_super) {
         this._nameTxt = null;
         /**是否是我自己的形象 */
         this.isSelf = false;
+        this._autoMove = false;
         this.touchEnabled = true;
         var txt = new egret.TextField();
         txt.textAlign = egret.HorizontalAlign.CENTER;
@@ -16,11 +17,50 @@ var Player = (function (_super) {
         this._avatar.addEventListener(SceneEventName.UPDATA_ROLE_SIZE, this.refreshBodySize, this);
     }
     var d = __define,c=Player,p=c.prototype;
+    d(p, "isMoving",undefined
+        ,function (value) {
+            this._isMoving = value;
+            if (value) {
+                LoopManager.addToFrame(this._onlyKey, this.loop, this);
+            }
+            else {
+                LoopManager.removeFromFrame(this._onlyKey);
+                if (this._autoMove) {
+                    this._autoMove = false;
+                    this.autoMove();
+                }
+            }
+        }
+    );
+    p.autoMove = function () {
+        if (this._autoMove) {
+            this._autoMove = false;
+            this.stopMove();
+            return;
+        }
+        this._autoMove = true;
+        var tarX = this.x + Math.floor(Math.random() * 800) - 400;
+        var tarY = this.x + Math.floor(Math.random() * 800) - 400;
+        var mapVo = SceneManager.ins.mapData;
+        if ((tarX + 200) > mapVo.mapWidth) {
+            tarX = mapVo.mapWidth - 200;
+        }
+        if (tarX - 200 < 0) {
+            tarX = 200;
+        }
+        if (tarY + 200 > mapVo.mapHeight) {
+            tarY = mapVo.mapHeight - 200;
+        }
+        if (tarY - 200 < 0) {
+            tarY = 200;
+        }
+        SceneManager.ins.clickMap(tarX, tarY);
+    };
     p.refreshBodySize = function (e) {
         this._nameTxt.text = this.roleData.name;
         this._nameTxt.width = this._nameTxt.textWidth + 3;
         this._nameTxt.x = -this._nameTxt.width / 2;
-        this._nameTxt.y = -this._avatar.bodyHeight - 3;
+        this._nameTxt.y = -this._avatar.bodyHeight - 5;
     };
     p.move = function () {
         if (this._targetPoint == null) {
@@ -45,7 +85,7 @@ var Player = (function (_super) {
             }
         }
         if (this.isSelf) {
-            GameDispatcher.ins.dispatchEventWith(SceneEventName.MY_ROLE_CHANGE_POSITION, false, { x: this.x, y: this.y });
+            GameDispatcher.ins.dispatchEventWith(SceneEventName.MY_ROLE_CHANGE_POSITION, { x: this.x, y: this.y });
         }
     };
     p.setRoleData = function (roleData) {

@@ -12,6 +12,34 @@ var MapBackGroundLayer = (function (_super) {
         this.addChild(this._markBmp);
     }
     var d = __define,c=MapBackGroundLayer,p=c.prototype;
+    p.drawNodes = function (mapData) {
+        if (this._nodeLayer == null) {
+            this._nodeLayer = new egret.Shape();
+        }
+        if (this._nodeLayer.parent) {
+            this.parent.removeChild(this._nodeLayer);
+            return;
+        }
+        this.parent.addChild(this._nodeLayer);
+        this._nodeLayer.graphics.clear();
+        if (!mapData)
+            return;
+        for (var y = 0; y < mapData.row; y++) {
+            for (var x = 0; x < mapData.col; x++) {
+                var go = mapData.getNode(x, y).walkAble;
+                var isMask = mapData.getNode(x, y).isMask;
+                var color = 0xFF0000;
+                if (go) {
+                    color = isMask ? 0x00FF00 : 0xFFFFFF;
+                }
+                var alpha = color == 0xFFFFFF ? 0 : 0.6;
+                this._nodeLayer.graphics.beginFill(color, alpha);
+                this._nodeLayer.graphics.lineStyle(1, 0x666666, 1);
+                this._nodeLayer.graphics.drawRect(MapConfig.MAP_NODE_WIDTH * x, MapConfig.MAP_NODE_HEIGHT * y, MapConfig.MAP_NODE_WIDTH, MapConfig.MAP_NODE_HEIGHT);
+                this._nodeLayer.graphics.endFill();
+            }
+        }
+    };
     p.setMark = function (texture, mw, mh) {
         var sx = mw / texture.bitmapData.width;
         var sy = mh / texture.bitmapData.height;
@@ -62,6 +90,12 @@ var MapBackGroundLayer = (function (_super) {
         }
     };
     p.clear = function () {
+        if (this._nodeLayer) {
+            this._nodeLayer.graphics.clear();
+            if (this._nodeLayer.parent)
+                this.parent.removeChild(this._nodeLayer);
+            this._nodeLayer = null;
+        }
         for (var url in this._hasClips) {
             var bmp = this._hasClips[url];
             if (this.contains(bmp))

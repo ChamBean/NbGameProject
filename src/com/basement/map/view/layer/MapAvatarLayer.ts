@@ -3,7 +3,7 @@
  * @author Bean
  */	
 class MapAvatarLayer extends BaseMapLayer {
-	private _childList:Array<egret.DisplayObject>
+	private _childList:Array<egret.DisplayObject>;
 	public constructor() {
 		super();
 		this._childList = [];

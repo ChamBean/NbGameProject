@@ -14,7 +14,7 @@ class BaseRoleData {
 	/**角色类型 参照RoleType类*/
 	public type:number;
 	/**等级*/
-	public level:number;
+	public level:number = 15;
 	/**朝向*/
 	public dir:number;
 	/**玩家状态*/

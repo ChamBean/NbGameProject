@@ -10,10 +10,9 @@ class LayerManager {
 	/**地图界面层之上 UI层之下*/
 	public mainLayer:egret.Sprite;
 	/**模块入口图标层*/
-	public moduleIconLayer:egret.Sprite;
+	public moduleLayer:egret.Sprite;
 	/**各模块弹出面板层*/
 	public windowLayer:egret.Sprite;
-
 	/**弹出框所在层级*/
 	public popAlertLayer:egret.Sprite;
 	/**提示消息层 系统公告 系统消息等等*/
@@ -23,7 +22,7 @@ class LayerManager {
 	public constructor() {
 		this.sceneLayer = new egret.Sprite();
 		this.mainLayer = new egret.Sprite();
-		this.moduleIconLayer = new egret.Sprite();
+		this.moduleLayer = new egret.Sprite();
 		this.windowLayer = new egret.Sprite();
 		this.popAlertLayer = new egret.Sprite();
 		this.msgLayer = new egret.Sprite();
@@ -35,7 +34,7 @@ class LayerManager {
 		this.container = _container;
 		_container.addChild(this.sceneLayer);
 		_container.addChild(this.mainLayer);
-		_container.addChild(this.moduleIconLayer);
+		_container.addChild(this.moduleLayer);
 		_container.addChild(this.windowLayer);
 		_container.addChild(this.popAlertLayer);
 		_container.addChild(this.msgLayer);

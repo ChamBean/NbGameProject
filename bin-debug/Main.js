@@ -136,8 +136,8 @@ var Main = (function (_super) {
      */
     p.startCreateScene = function () {
         //    this.stage.scaleMode = egret.StageScaleMode.NO_SCALE;
-        var module = new ModuleManager();
-        module.startModule();
+        App.ins.moduleManager = new ModuleManager();
+        App.ins.moduleManager.startModule();
         //    this.onResizeHandler(null);
         //    this.stage.addEventListener(egret.Event.RESIZE,this.onResizeHandler,this)
     };

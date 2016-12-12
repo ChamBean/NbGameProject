@@ -3,11 +3,11 @@ class StringUtil {
 	}
 
 	/**
-		 * 数据转Boolean类型
+		 * 数据转boolean类型
 		 * @param obj
 		 * @return 
 		 */		
-		public static toBoolean(obj:any):Boolean
+		public static toboolean(obj:any):boolean
 		{
 			if(obj == null)
 			{
@@ -22,23 +22,6 @@ class StringUtil {
 				return false;
 			}
 			return true;
-		}
-		
-		/**
-		 * 计算天数
-		 * @param $startTime $endTime
-		 * @return 
-		 * 
-		 */
-		public static getDay($startTime:number,$endTime:number):number
-		{
-			// Date.parse()
-			// var date:DateConstructor = new DateConstructor();
-			// date.time = $startTime*1000;
-			// var date2:Date = new Date(date.fullYear,date.month,date.date);
-			// var openTime:number = date2.time/1000;
-			// var days:number = Math.ceil(($endTime - openTime)/86400);
-			return 0;
 		}
 		
 		/**
@@ -66,19 +49,6 @@ class StringUtil {
 			
 			return strNum;
 		}
-		
-		/**
-		 * 获取字符串长度 （中英文混合）
-		 * @param thisString
-		 * @return 
-		 * 
-		 */
-		public static GetStringLength(thisString : string,charSet:string = "gb2312") : number
-		{  
-			var thisStringBytsLength :egret.ByteArray = new egret.ByteArray();  
-			// thisStringBytsLength.writeMultiByte(thisString,charSet);  thisStringBytsLength.writeUTFBytes
-			return thisStringBytsLength.length;  
-		} 
 		
 		/**
 		 * 获得中文周几
@@ -183,22 +153,7 @@ class StringUtil {
 		        + separator + (min < 10 ? "0" + min : "" + min)
 		        + separator + (sec < 10 ? "0" + sec : "" + sec);
 		}
-		
-		/**
-		 * 解析时间成当前时间
-		 * @param time
-		 * @return 
-		 * 
-		 */	
-		public static resloveFormatLastLoginTime(time:number):string
-		{
-			//发过来的时间是距离1970年1月1日的秒数，因此用DATE的格式化需要乘上1000
-			var t:string = "";
-			// var d:Date = new Date(time * 1000);
-			// t = d.fullYear + "年" + (d.month + 1) + "月" + d.date + "日" + d.hours + "时" + d.minutes + "分" + d.seconds +"秒";
-			return t;
-		}
-		
+
 		/**
 		 * 解析时间成当前时间(天时分秒)
 		 * @param time
@@ -222,70 +177,6 @@ class StringUtil {
 			return strDay + strHour+ "时"+strMinute+"分"+strSecond + "秒";
 		}
 		
-		/**
-		 * 解析时间(年月日)
-		 * @param time
-		 * @return 
-		 * 
-		 */	
-		public static formatTimeToDay(time:number):string
-		{
-			//发过来的时间是距离1970年1月1日的秒数，因此用DATE的格式化需要乘上1000
-			var t:string = "";
-			// var d:Date = new Date(time * 1000);
-			// t = d.fullYear + "年" + (d.month + 1) + "月" + d.date + "日";
-			return t;
-		}
-		
-		/**
-		 * 解析时间(年月日时分)
-		 * @param time
-		 * @return 
-		 * 
-		 */	
-		public static formatTimeToMin(time:number):string
-		{
-			//发过来的时间是距离1970年1月1日的秒数，因此用DATE的格式化需要乘上1000
-			var t:string = "";
-			var d:Date = new Date(time * 1000);
-			// t = d.fullYear + "年" + (d.month + 1) + "月" + d.date + "日" + d.hours + "时" + d.minutes + "分";
-			return t;
-		}
-		
-		
-		/**
-		 * 解析时间(年月日时分)
-		 * 1970年1月1日10:20
-		 * @param time
-		 * @return 
-		 * 
-		 */	
-		public static formatTimeToMin2(time:number):string
-		{
-			//发过来的时间是距离1970年1月1日的秒数，因此用DATE的格式化需要乘上1000
-			var t:string = "";
-			var d:Date = new Date(time * 1000);
-			// t = d.fullYear + "年" + (d.month + 1) + "月" + d.date + "日" + (d.hours < 10 ? "0" 
-			// 	+ d.hours : "" + d.hours) + ":" + (d.minutes < 10 ? "0" + d.minutes : "" + d.minutes);
-			return t;
-		}
-		
-		
-		/**
-		 * 解析时间(时分秒)
-		 * 1970年1月1日10:20
-		 * @param time
-		 * @return 
-		 */	
-		public static formatTimeToMin3(time:number):string
-		{
-			//发过来的时间是距离1970年1月1日的秒数，因此用DATE的格式化需要乘上1000
-			var t:string = "";
-			var d:Date = new Date(time * 1000);
-			// t = (d.hours < 10 ? "0" + d.hours : "" + d.hours) + ":" + (d.minutes < 10 ? "0" + d.minutes : "" + d.minutes)
-			// 	+ ":" + (d.seconds < 10 ? "0" + d.seconds : "" + d.seconds);
-			return t;
-		}
 		
 		/**
 		 * 替换所有的字符串,通过split and join
@@ -313,43 +204,6 @@ class StringUtil {
 		{
 			var randomNum:number = Math.floor(Math.random() * (max - min + 1)) + min;
 			return randomNum;
-		}
-		
-		/**
-		 * 从原字符串中,截取一个指定字节长度的字符串 
-		 * @param name
-		 * @param leng
-		 * @return 
-		 * 
-		 */		
-		public static checkNameLength(name:string, leng:number = 16,charSet:string = "gb2312"):string
-		{
-			var ret:string = "";
-			// var bytes:ByteArray = new ByteArray();
-			// bytes.writeMultiByte(name, charSet);
-			// if(bytes.length > leng)
-			// {
-			// 	bytes.position = 0;
-			// 	ret = bytes.readMultiByte(leng,charSet);
-			// }
-			// else
-			// {
-			// 	ret = name;
-			// }
-			return ret;
-		}
-		
-		/**
-		 * 00：00
-		 * @param value 秒
-		 * 
-		 */		
-		public static formatTimeToMinSec(value:number):string
-		{
-			var min:number = value/60;
-			var sec:number = value%60;
-			var t:string = (min>=10?min:"0"+min) + ":"+(sec>=10?sec:"0"+sec);
-			return t;
 		}
 		
 		/**

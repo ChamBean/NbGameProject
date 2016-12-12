@@ -42,7 +42,8 @@ var LoadingUI = (function (_super) {
         this.textField.textAlign = "center";
     };
     p.setProgress = function (groupName, current, total) {
-        this.textField.text = 'Loading' + groupName + '资源...${current}/${total}';
+        this.textField.text = "Loading  " + groupName + "\u8D44\u6E90..." + current + "/" + total;
+        egret.log(this.textField.text);
     };
     return LoadingUI;
 }(egret.Sprite));

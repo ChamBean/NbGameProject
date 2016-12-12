@@ -1,3 +1,8 @@
+/**
+ * ToggleButton组
+ * @author Bean
+ * @since 2016.12.04
+ */
 var CustomToggleGroup = (function (_super) {
     __extends(CustomToggleGroup, _super);
     function CustomToggleGroup() {

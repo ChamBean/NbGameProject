@@ -6,25 +6,27 @@
 class ModuleManager {
 
 	public constructor() {
-		
+		this.setModules();
 	}
 
 	public startModule():void{
-		var arr:Array<BaseModule> = this.getModules();
-		for(var i:number = 0; i < arr.length; i++)
-			{
-				var module:BaseModule = arr[i] as BaseModule;
-				module.startup();
-			}
+		for(var id in this._modules)
+		{
+			this._modules[id].startup();
+		}
+	}
+	private _modules:any;
+	private setModules():void
+	{
+		this._modules = {};
+		this._modules[ModuleIdStatic.GM_MODULE] = new GmModule();
+		this._modules[ModuleIdStatic.MAP_MODULE] = new MapModule();
+		this._modules[ModuleIdStatic.MAIN_MODULE] = new MainModule();
+		this._modules[ModuleIdStatic.CHAT_MODULE] = new ChatModule();
 	}
 
-	private getModules():Array<BaseModule>
-	{
-		return [
-			new MainModule(),
-			new MapModule()
-
-		];
-
+	public openModule(id:number,subid:number=0):void{
+		var module:BaseModule = this._modules[id];
+		module.openView();
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * 场景视图集结中心
+ * 场景视图层级管理中心
  * @author Bean
  * @since 2016.12.04
  */
@@ -32,7 +32,7 @@ class MapViewMediator {
 	}
 
 	private onMapClick(e:egret.TouchEvent):void{
-		SceneManager.ins.ClickMap(e.localX,e.localY);
+		SceneManager.ins.clickMap(e.localX,e.localY);
 	}
 
 	public get map():MapContainer{
@@ -48,11 +48,12 @@ class MapViewMediator {
 		return this._mapAvatarLayer;
 	}
 	
-	public createMyRole(data:BaseRoleData):Player{
+	public createMyRole(data:PlayerInfoData):Player{
 		let role:Player = new Player();
 		role.isSelf = true;
-		data.dir = 4//Math.floor(Math.random() * 7);
+		data.dir = 4//Math.random() * 7);
 		data.dress = 0;
+		data.level = Math.floor(Math.random() * 80 + 10);
 		var index:number = Math.floor(Math.random()*3.9) ;
 		var obj:any = RoleState.STATES;
 		var state:string = obj[index];
@@ -60,6 +61,26 @@ class MapViewMediator {
 		data.nodeX = Math.floor(Math.random() * 22) + 22;
 		data.nodeY = Math.floor(Math.random() * 22) + 22;
 		role.setRoleData(data);
+		return role;
+	}
+
+	public createOtherPlayer():Player{
+		let role:Player = new Player();
+		var data:PlayerInfoData = new PlayerInfoData();
+		role.isSelf = false;
+		data.dir = 4;
+		data.sex = Math.floor(Math.random() * 1);
+		data.dress = Math.floor(Math.random() * 3);
+		data.level = Math.floor(Math.random() * 80 + 10);
+		var index:number = Math.floor(Math.random()*3.9) ;
+		var obj:any = RoleState.STATES;
+		var state:string = obj[index];
+		data.state = state;
+		data.nodeX = Math.floor(Math.random() * 43) + 4;
+		data.nodeY = Math.floor(Math.random() * 43) + 4;
+		role.setRoleData(data);
+		role.x = data.nodeX * MapConfig.MAP_NODE_WIDTH + MapConfig.MAP_NODE_WIDTH * 0.5;
+		role.y = data.nodeY * MapConfig.MAP_NODE_HEIGHT + MapConfig.MAP_NODE_HEIGHT * 0.5;
 		return role;
 	}
 

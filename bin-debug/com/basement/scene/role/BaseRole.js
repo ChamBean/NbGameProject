@@ -1,3 +1,8 @@
+/**
+ * 场景角色基类
+ * @author Bean
+ * @since 2016.12.04
+ */
 var BaseRole = (function (_super) {
     __extends(BaseRole, _super);
     function BaseRole() {
@@ -72,12 +77,12 @@ var BaseRole = (function (_super) {
             this.doStandAct();
         }
         else {
+            this.isMoving = true;
             this.runEndFunc = func;
             this.doNextMove();
         }
     };
     p.doNextMove = function () {
-        this.isMoving = true;
         var paths = this._movePaths;
         if (paths != null && paths.length > 0) {
             this._startPoint.x = this.x;

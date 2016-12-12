@@ -18,5 +18,25 @@
         "path": "com\\game\\module\\createRole\\CreateRoleView.ts",
         "class": "CreateRoleView",
         "parentPath": ""
+    },
+    "158dcec3670": {
+        "path": "com\\game\\module\\mainmenu\\view\\MainView.ts",
+        "class": "MainView",
+        "parentPath": ""
+    },
+    "158dd4813d4": {
+        "path": "com\\game\\module\\chat\\ChatView.ts",
+        "class": "ChatView",
+        "parentPath": ""
+    },
+    "158e23dcaf6": {
+        "path": "com\\game\\module\\GmModule\\FeatureChangeView.ts",
+        "class": "FeatureChangeView",
+        "parentPath": ""
+    },
+    "158e23e5c3f": {
+        "path": "com\\basement\\Ui\\component\\CustomWindow.ts",
+        "class": "CustomWindow",
+        "parentPath": ""
     }
 }

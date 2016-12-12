@@ -11,6 +11,10 @@ class BaseModule {
 		throw new Error("需要被重写");
 	}
 	
+	public openView():void{
+		
+	}
+
 	/**
 	 * 模块名称
 	 * @return 
@@ -42,7 +46,7 @@ class BaseModule {
 	
 	protected dispatch(param1:string, param2:any = null) : void
 	{
-		this._dispatch.dispatchEventWith(param1,false,param2);
+		this._dispatch.dispatchEventWith(param1,param2);
 	}
 	
 	protected addModuleListener(param1:string, param2:Function) : void

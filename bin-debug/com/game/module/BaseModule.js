@@ -10,6 +10,8 @@ var BaseModule = (function () {
     p.startup = function () {
         throw new Error("需要被重写");
     };
+    p.openView = function () {
+    };
     d(p, "moduleName"
         /**
          * 模块名称
@@ -33,7 +35,7 @@ var BaseModule = (function () {
     };
     p.dispatch = function (param1, param2) {
         if (param2 === void 0) { param2 = null; }
-        this._dispatch.dispatchEventWith(param1, false, param2);
+        this._dispatch.dispatchEventWith(param1, param2);
     };
     p.addModuleListener = function (param1, param2) {
         this._dispatch.addEventListener(param1, param2, this);

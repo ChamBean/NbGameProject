@@ -1,3 +1,8 @@
+/**
+ * 图片资源存储vo
+ * @author Bean
+ * @since 2016.12.04
+ */
 var CBitmapData = (function () {
     function CBitmapData(url, value) {
         this._count = 0;

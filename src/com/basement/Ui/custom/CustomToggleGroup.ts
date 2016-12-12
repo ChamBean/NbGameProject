@@ -1,3 +1,8 @@
+/**
+ * ToggleButton组
+ * @author Bean
+ * @since 2016.12.04
+ */
 class CustomToggleGroup extends egret.EventDispatcher{
 	private _toggleArr:Array<eui.ToggleButton> = null;
 	private _selectTab:eui.ToggleButton = null;

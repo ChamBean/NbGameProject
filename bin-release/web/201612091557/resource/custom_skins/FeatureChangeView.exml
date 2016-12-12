@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="FeatureChangeViewSkin" width="400" height="320" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="158e23dcaf6" ></w:Config>
+	<ns1:SecondWindow width="100%" height="100%" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" skinName="SecondWindowSkin"/>
+	<e:Label text="换个形象" x="142" y="7" anchorOffsetX="0" width="134" anchorOffsetY="0" height="25" textAlign="center" size="20"/>
+	<e:Button id="sexBtn" label="换个性别" x="21" y="39" skinName="ButtonSkin1" anchorOffsetX="0" width="108" anchorOffsetY="0" height="44"/>
+	<e:Button id="jobBtn" label="换个职业" x="143" y="41" anchorOffsetX="0" width="98" anchorOffsetY="0" height="40" skinName="ButtonSkin1"/>
+	<e:Button id="dressBtn" label="换件衣服" x="261" y="42" skinName="ButtonSkin1" anchorOffsetY="0" height="42"/>
+</e:Skin>

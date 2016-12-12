@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SecondWindowSkin" width="400" height="300" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="158e23e5c3f" ></w:Config>
+	<e:Image width="100%" height="100%" x="0" y="0" source="zyz_03" scale9Grid="143,42,66,13" anchorOffsetY="0" anchorOffsetX="0"/>
+	<e:Button id="closeBtn" label="按钮" y="4" right="4">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="Kelvin 391_1" source.down="Kelvin 391_1" source.disabled="Kelvin 391_1" x.down="1" y.down="1"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+</e:Skin>

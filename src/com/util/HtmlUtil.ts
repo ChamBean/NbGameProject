@@ -9,4 +9,9 @@ class HtmlUtil {
 		var textflowArr:Array<egret.ITextElement> = HtmlUtil.htmlParser.parser(str);
 		return textflowArr;
 	}
+
+	private test():void{
+		// Date.UTC()
+		// var reg:RegExp = new RegExp();RegExp.$5
+	}
 }

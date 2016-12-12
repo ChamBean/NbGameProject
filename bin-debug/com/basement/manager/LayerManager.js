@@ -7,7 +7,7 @@ var LayerManager = (function () {
     function LayerManager() {
         this.sceneLayer = new egret.Sprite();
         this.mainLayer = new egret.Sprite();
-        this.moduleIconLayer = new egret.Sprite();
+        this.moduleLayer = new egret.Sprite();
         this.windowLayer = new egret.Sprite();
         this.popAlertLayer = new egret.Sprite();
         this.msgLayer = new egret.Sprite();
@@ -18,7 +18,7 @@ var LayerManager = (function () {
         this.container = _container;
         _container.addChild(this.sceneLayer);
         _container.addChild(this.mainLayer);
-        _container.addChild(this.moduleIconLayer);
+        _container.addChild(this.moduleLayer);
         _container.addChild(this.windowLayer);
         _container.addChild(this.popAlertLayer);
         _container.addChild(this.msgLayer);

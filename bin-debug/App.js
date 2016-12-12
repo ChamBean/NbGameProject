@@ -1,3 +1,8 @@
+/**
+ * 应用内各种单例类管理中心
+ * @author Bean
+ * @since 2016.12.04
+ */
 var App = (function () {
     function App() {
         this.resManager = null;

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>一个人的世界</title>
+    <title>Demo</title>
     <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="full-screen" content="true"/>
@@ -64,6 +64,7 @@
 	<script egret="game" src="bin-debug/com/basement/net/load/LoadInfo.js"></script>
 	<script egret="game" src="bin-debug/com/basement/net/load/LoadManager.js"></script>
 	<script egret="game" src="bin-debug/com/basement/net/load/LoadPriorityEnum.js"></script>
+	<script egret="game" src="bin-debug/com/basement/scene/moviclip/CustomMoviClip.js"></script>
 	<script egret="game" src="bin-debug/com/basement/scene/role/Avatar.js"></script>
 	<script egret="game" src="bin-debug/com/basement/scene/role/BaseRole.js"></script>
 	<script egret="game" src="bin-debug/com/basement/scene/role/data/BaseRoleData.js"></script>
@@ -71,24 +72,36 @@
 	<script egret="game" src="bin-debug/com/basement/scene/role/RoleType.js"></script>
 	<script egret="game" src="bin-debug/com/basement/scene/SceneType.js"></script>
 	<script egret="game" src="bin-debug/com/basement/timer/LoopManager.js"></script>
+	<script egret="game" src="bin-debug/com/basement/Ui/component/SecondWindow.js"></script>
 	<script egret="game" src="bin-debug/com/basement/Ui/component/UiWindow.js"></script>
+	<script egret="game" src="bin-debug/com/basement/Ui/custom/CustomButton.js"></script>
+	<script egret="game" src="bin-debug/com/basement/Ui/custom/CustomImage.js"></script>
+	<script egret="game" src="bin-debug/com/basement/Ui/custom/CustomNumImg.js"></script>
 	<script egret="game" src="bin-debug/com/basement/Ui/custom/CustomToggleGroup.js"></script>
 	<script egret="game" src="bin-debug/com/basement/Ui/UiManager.js"></script>
 	<script egret="game" src="bin-debug/com/basement/Ui/view/BaseView.js"></script>
 	<script egret="game" src="bin-debug/com/game/GlobUrl.js"></script>
 	<script egret="game" src="bin-debug/com/game/Message.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/BaseModule.js"></script>
+	<script egret="game" src="bin-debug/com/game/module/chat/ChatModule.js"></script>
+	<script egret="game" src="bin-debug/com/game/module/chat/ChatView.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/createRole/CreateRoleView.js"></script>
+	<script egret="game" src="bin-debug/com/game/module/GmModule/FeatureChangeView.js"></script>
+	<script egret="game" src="bin-debug/com/game/module/GmModule/GmModule.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/mainmenu/MainModule.js"></script>
+	<script egret="game" src="bin-debug/com/game/module/mainmenu/view/MainView.js"></script>
+	<script egret="game" src="bin-debug/com/game/module/mainmenu/view/WelcomView.js"></script>
+	<script egret="game" src="bin-debug/com/game/module/map/data/PlayerInfoData.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/map/element/Monster.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/map/element/Player.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/map/MapModule.js"></script>
+	<script egret="game" src="bin-debug/com/game/module/map/SceneManager.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/map/view/MapViewMediator.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/ModuleManager.js"></script>
-	<script egret="game" src="bin-debug/com/game/module/SceneManager.js"></script>
 	<script egret="game" src="bin-debug/com/util/EventName.js"></script>
 	<script egret="game" src="bin-debug/com/util/GameDispatcher.js"></script>
 	<script egret="game" src="bin-debug/com/util/HtmlUtil.js"></script>
+	<script egret="game" src="bin-debug/com/util/ModuleIdStatic.js"></script>
 	<script egret="game" src="bin-debug/com/util/StringUtil.js"></script>
 	<script egret="game" src="bin-debug/LoadingUI.js"></script>
 	<script egret="game" src="bin-debug/Main.js"></script>
@@ -106,7 +119,7 @@
          data-content-height="800"
          data-show-paint-rect="false"
          data-multi-fingered="2"
-         data-show-fps="true" data-show-log="false"
+         data-show-fps="false" data-show-log="false"
          data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
     </div>
     <script>

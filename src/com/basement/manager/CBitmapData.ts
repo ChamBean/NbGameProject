@@ -1,3 +1,8 @@
+/**
+ * 图片资源存储vo
+ * @author Bean
+ * @since 2016.12.04
+ */
 class CBitmapData {
 	private _count:number = 0;
 	private _texture:egret.Texture;

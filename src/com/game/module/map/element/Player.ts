@@ -14,13 +14,55 @@ class Player extends BaseRole{
 		this.addChild(txt);
 		this._avatar.addEventListener(SceneEventName.UPDATA_ROLE_SIZE,this.refreshBodySize,this);
 	}
+	public set isMoving(value:boolean)
+	{
+		this._isMoving = value;
+		if(value)
+		{
+			LoopManager.addToFrame(this._onlyKey,this.loop,this);
+		}
+		else
+		{
+			LoopManager.removeFromFrame(this._onlyKey);
+			if(this._autoMove){
+			this._autoMove = false;
+			this.autoMove();
+			}
+		}
+	} 
+
+	private _autoMove:boolean = false;
+	public autoMove():void{
+		if(this._autoMove){
+			this._autoMove = false;
+			this.stopMove();
+			return;
+		}
+		this._autoMove = true;
+		var tarX:number = this.x + Math.floor(Math.random() * 800) - 400;
+		var tarY:number = this.x + Math.floor(Math.random() * 800) - 400;
+		var mapVo:MapVo = SceneManager.ins.mapData;
+		if((tarX + 200) > mapVo.mapWidth){
+			tarX = mapVo.mapWidth - 200;
+		}
+		if(tarX - 200 < 0){
+			tarX = 200;
+		}
+		if(tarY + 200 > mapVo.mapHeight){
+			tarY = mapVo.mapHeight - 200;
+		}
+		if(tarY - 200 < 0){
+			tarY = 200;
+		}
+		SceneManager.ins.clickMap(tarX,tarY);
+	}
 
 	private refreshBodySize(e:egret.Event):void
 	{
 		this._nameTxt.text = this.roleData.name;
 		this._nameTxt.width = this._nameTxt.textWidth + 3;
 		this._nameTxt.x = -this._nameTxt.width/2;
-		this._nameTxt.y = -this._avatar.bodyHeight - 3;
+		this._nameTxt.y = -this._avatar.bodyHeight - 5;
 
 	}
 
@@ -51,7 +93,7 @@ class Player extends BaseRole{
 			}
 		}
 		if(this.isSelf){
-			GameDispatcher.ins.dispatchEventWith(SceneEventName.MY_ROLE_CHANGE_POSITION,false,{x:this.x,y:this.y});
+			GameDispatcher.ins.dispatchEventWith(SceneEventName.MY_ROLE_CHANGE_POSITION,{x:this.x,y:this.y});
 		}
 	}
 

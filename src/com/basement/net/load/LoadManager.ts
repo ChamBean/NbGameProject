@@ -1,3 +1,8 @@
+/**
+ * 加载管理器
+ * @author Bean
+ * @since 2016.12.04
+ */
 class LoadManager {
 	
 	public constructor() {

@@ -1,6 +1,12 @@
+/**
+ * 主界面数据收发层
+ * @author Bean
+ * @since 2016.12.04
+ */
 class MainModule extends BaseModule{
 
 	private _createRole:CreateRoleView = null;
+	private _mainView:MainView = null;
 	public constructor() {
 		super();
 	}
@@ -14,12 +20,27 @@ class MainModule extends BaseModule{
 			this._createRole = new CreateRoleView(this);
 			this._createRole.isPop = true;
 		}
+		this.initListeners();
 	}
 	
-	public createRole(roleData:BaseRoleData):void{
-		GameDispatcher.ins.dispatchEventWith(EventName.CREATE_ROLE_SUCCESS,false,roleData);
+	protected initListeners():void{
+		
+	}
+
+	public createRole(roleData:PlayerInfoData):void{
+		this.dispatch(EventName.CREATE_ROLE_SUCCESS,roleData);
 		this._createRole.dispos();
 		this._createRole = null;
+		this.initMainView(roleData);
+	}
+
+	private initMainView(roleData:PlayerInfoData):void{
+		if(this._mainView == null){
+			this._mainView = new MainView(this);
+			App.ins.layer.mainLayer.addChild(this._mainView);
+			this._mainView.setRoleData(roleData);
+		}
+
 	}
 
 	/**

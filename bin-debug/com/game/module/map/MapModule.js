@@ -1,3 +1,8 @@
+/**
+ * 地图模块启动中心
+ * @author Bean
+ * @since 2016.12.04
+ */
 var MapModule = (function (_super) {
     __extends(MapModule, _super);
     function MapModule() {
@@ -14,11 +19,16 @@ var MapModule = (function (_super) {
     };
     p.initListeners = function () {
         this.addModuleListener(EventName.CREATE_ROLE_SUCCESS, this.onCreateRoleHandler);
+        this.addModuleListener(EventName.OPEN_MAP_NODE, this.onOpenMapNode);
+    };
+    p.onOpenMapNode = function (e) {
+        this._mapView.backLayer.drawNodes(this._sceneManager.mapData);
     };
     p.onCreateRoleHandler = function (e) {
-        console.log(this);
         this._sceneManager.createMyRole(e.data);
         this._sceneManager.initMap();
+    };
+    p.openView = function () {
     };
     d(p, "moduleName"
         /**

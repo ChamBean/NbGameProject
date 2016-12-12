@@ -1,8 +1,14 @@
+/**
+ * 主界面数据收发层
+ * @author Bean
+ * @since 2016.12.04
+ */
 var MainModule = (function (_super) {
     __extends(MainModule, _super);
     function MainModule() {
         _super.call(this);
         this._createRole = null;
+        this._mainView = null;
     }
     var d = __define,c=MainModule,p=c.prototype;
     /**
@@ -13,11 +19,22 @@ var MainModule = (function (_super) {
             this._createRole = new CreateRoleView(this);
             this._createRole.isPop = true;
         }
+        this.initListeners();
+    };
+    p.initListeners = function () {
     };
     p.createRole = function (roleData) {
-        GameDispatcher.ins.dispatchEventWith(EventName.CREATE_ROLE_SUCCESS, false, roleData);
+        this.dispatch(EventName.CREATE_ROLE_SUCCESS, roleData);
         this._createRole.dispos();
         this._createRole = null;
+        this.initMainView(roleData);
+    };
+    p.initMainView = function (roleData) {
+        if (this._mainView == null) {
+            this._mainView = new MainView(this);
+            App.ins.layer.mainLayer.addChild(this._mainView);
+            this._mainView.setRoleData(roleData);
+        }
     };
     d(p, "moduleName"
         /**

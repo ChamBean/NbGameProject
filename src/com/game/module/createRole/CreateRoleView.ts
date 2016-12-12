@@ -1,3 +1,8 @@
+/**
+ * 创建角色视图类
+ * @author Bean
+ * @since 2016.12.04
+ */
 class CreateRoleView extends BaseView implements  eui.UIComponent {
 	public tab1:eui.ToggleButton = null;
 	public tab2:eui.ToggleButton = null;
@@ -13,18 +18,17 @@ class CreateRoleView extends BaseView implements  eui.UIComponent {
 
 	private _toggleGroup:CustomToggleGroup = null;
 
-	private _roleData:BaseRoleData = null;
-
+	private _roleData:PlayerInfoData = null;
+	private static names:Array<string> = ['2呵','2v','卖萌的婷婷','榔头','傻z','逗比盖','大表哥','土豪炳','逗比摸头','流星'];
 	private static desObj:any = {1:'近战物理职业，通过暴力摧毁敌人',2:'魔法职业，拥有最强大的远程群体攻击',3:'兼顾远程输出和辅助的职业，还能召唤宠物攻击'};
 	private _module:MainModule;
 	public constructor(module:MainModule){
 		super();
 		this._module = module;
-		this.addEventListener(eui.UIEvent.CREATION_COMPLETE,this.onCreateComplete,this);
 	}
 
 	protected onCreateComplete(e:eui.UIEvent):void{
-		this.removeEventListener(eui.UIEvent.CREATION_COMPLETE,this.onCreateComplete,this);
+		super.onCreateComplete(e);
 		var group:CustomToggleGroup = new CustomToggleGroup();
 		group.addEventListener(egret.Event.CHANGE,this.onToggleChangeHandelr,this);
 		this._toggleGroup = group;
@@ -34,12 +38,10 @@ class CreateRoleView extends BaseView implements  eui.UIComponent {
 		group.setToggleBtn(this.tab4);
 		group.setToggleBtn(this.tab5);
 		group.setToggleBtn(this.tab6);
-		this._roleData = new BaseRoleData();
+		this._roleData = new PlayerInfoData();
 		group.selectTab = this.tab1;
-		this.nameTxt.text = '张二';
-		this.nameTxt.addEventListener(egret.Event.CHANGE,this.onNameChangeHandler,this);
-		this.starBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onStartHandler,this);
-		this.randomBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onRandomHandler,this);
+		var nameStr:string = CreateRoleView.names[Math.floor(Math.random()*(CreateRoleView.names.length-1))];
+		this.nameTxt.text = nameStr;
 	}
 
 	private onStartHandler(e:egret.Event):void{
@@ -52,7 +54,8 @@ class CreateRoleView extends BaseView implements  eui.UIComponent {
 		this._module.createRole(this._roleData);
 	}
 	private onRandomHandler(e:egret.Event):void{
-		Message.show('找不到名字库');
+		var nameStr:string = CreateRoleView.names[Math.floor(Math.random()*(CreateRoleView.names.length-1))];
+		this.nameTxt.text = nameStr;
 	}
 	private onNameChangeHandler(e:egret.Event):void{
 		var txt:eui.TextInput = e.target;
@@ -107,6 +110,17 @@ class CreateRoleView extends BaseView implements  eui.UIComponent {
 	public dispos():void
 	{
 		this.isPop = false;
+		this.removeEvent();
+		RES.destroyRes('cjjs');
+	}
+
+	protected addEvent():void{
+		this.nameTxt.addEventListener(egret.Event.CHANGE,this.onNameChangeHandler,this);
+		this.starBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onStartHandler,this);
+		this.randomBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onRandomHandler,this);
+	}
+
+	protected removeEvent():void{
 		this._toggleGroup.removeEventListener(egret.Event.CHANGE,this.onToggleChangeHandelr,this);
 		this.nameTxt.removeEventListener(egret.Event.CHANGE,this.onNameChangeHandler,this);
 		this.starBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onStartHandler,this);

@@ -21,14 +21,20 @@ var ChatView = (function (_super) {
                     var mapObj = { x: moveArr[1], y: moveArr[2] };
                     GameDispatcher.ins.dispatchEvent(new egret.Event(EventName.AUTO_SEARCH_ROAD, false, false, mapObj));
                 }
+                var date = new Date(parseInt(str));
+                this.hostTxt.text = date.getFullYear() + "," + (date.getMonth() + 1) + "," + date.getDate() + ",\u661F\u671F" + date.getDay() + "," + date.getHours() + "," + date.getMinutes();
+                console.log(this.hostTxt.text);
                 break;
             case this.openNodeBtn:
                 GameDispatcher.ins.dispatchEvent(new egret.Event(EventName.AUTO_SEARCH_ROAD));
                 this.isPop = false;
                 break;
-            case this.createBtn:
-                GameDispatcher.ins.dispatchEventWith(EventName.OPEN_GM_PANEL, { type: 1 });
-                this.isPop = false;
+            case this.socketBtn:
+                // GameDispatcher.ins.dispatchEventWith(EventName.OPEN_GM_PANEL,{type:1});
+                // this.isPop = false;
+                var host = this.hostTxt.text;
+                var port = parseInt(this.portTxt.text);
+                App.ins.socket.connect(host, port);
                 break;
             case this.findBtn:
                 GameDispatcher.ins.dispatchEventWith(EventName.OPEN_GM_PANEL, { type: 2 });
@@ -43,7 +49,7 @@ var ChatView = (function (_super) {
     p.addEvent = function () {
         this.sendBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this);
         this.openNodeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this);
-        this.createBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this);
+        this.socketBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this);
         this.findBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this);
         this.dressBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this);
     };

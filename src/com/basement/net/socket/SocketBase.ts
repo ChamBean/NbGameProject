@@ -9,6 +9,7 @@ module net {
 			this.addEventListener(egret.ProgressEvent.SOCKET_DATA, this.onReceiveMessage, this);
 			this.addEventListener(egret.Event.CONNECT, this.onSocketOpen, this);
 			this.addEventListener(egret.Event.CLOSE,this.onSocketClose,this);
+			this.addEventListener(egret.IOErrorEvent.IO_ERROR,this.onSocketError,this);
 		}
 
 		public connect(host: string, port: number):void{
@@ -20,12 +21,16 @@ module net {
 		}
 
 		 //连接成功返回
-		public onSocketOpen(): void {
+		public onSocketOpen(e:egret.Event): void {
 			Message.show('socket连接成功');
 		}
 		 //连接成功返回
-		public onSocketClose(): void {
+		public onSocketClose(e:egret.Event): void {
 			Message.show('socket已关闭');
+		}
+
+		public onSocketError(e:egret.IOErrorEvent):void{
+			Message.show('socket连接错误');
 		}
 
 		public close():void{
@@ -35,7 +40,7 @@ module net {
 		}
 
 		//消息返回  
-		public onReceiveMessage(): void {
+		public onReceiveMessage(e:egret.ProgressEvent): void {
 			var _arr: egret.ByteArray = new egret.ByteArray();
 			this.readBytes(_arr);
 			var mainId = _arr.readInt();

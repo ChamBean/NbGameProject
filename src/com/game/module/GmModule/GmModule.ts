@@ -4,7 +4,6 @@ class GmModule extends BaseModule{
 	}
 
 	private _featureChangeView:FeatureChangeView = null;
-
 	public startup():void{
 		this.initListeners();
 	}

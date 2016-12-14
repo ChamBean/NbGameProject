@@ -27,8 +27,4 @@ class GameDispatcher extends egret.EventDispatcher{
 		return super.dispatchEventWith(type,false,data);
 		// return GameDispatcher._dispatcher.dispatchEventWith(type,false,data);
 	}
-
-	// public addEventListener():void{
-	// 	GameDispatcher._dispatcher.addEventListener()
-	// }
 }

@@ -7,10 +7,12 @@ var App = (function () {
     function App() {
         this.resManager = null;
         this.configManager = null;
+        this.socket = null;
     }
     var d = __define,c=App,p=c.prototype;
     p.init = function (stage) {
         this.stage = stage;
+        this.socket = new net.SocketManager();
         LoopManager.init(stage);
         this.layer = new LayerManager();
         this.resManager = new ResourceManager();

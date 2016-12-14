@@ -15,6 +15,7 @@ class App {
 	public socket:net.SocketManager = null;
 	public init(stage:egret.Stage):void{
 		this.stage = stage;
+		this.socket = new net.SocketManager();
 		LoopManager.init(stage);
 		this.layer = new LayerManager();
 		this.resManager = new ResourceManager();

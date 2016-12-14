@@ -20,17 +20,6 @@ var StringUtil = (function () {
         return true;
     };
     /**
-     * 计算天数
-     * @param $startTime $endTime
-     * @return
-     *
-     */
-    StringUtil.getDay = function ($startTime, $endTime) {
-        // Math
-        return 0;
-        // Date.
-    };
-    /**
      * 把数字转成  1000->1,000
      * @param $value
      * @return
@@ -50,18 +39,6 @@ var StringUtil = (function () {
             strNum = arr.join(",");
         }
         return strNum;
-    };
-    /**
-     * 获取字符串长度 （中英文混合）
-     * @param thisString
-     * @return
-     *
-     */
-    StringUtil.GetStringLength = function (thisString, charSet) {
-        if (charSet === void 0) { charSet = "gb2312"; }
-        var thisStringBytsLength = new egret.ByteArray();
-        // thisStringBytsLength.writeMultiByte(thisString,charSet);  thisStringBytsLength.writeUTFBytes
-        return thisStringBytsLength.length;
     };
     /**
      * 获得中文周几
@@ -154,19 +131,6 @@ var StringUtil = (function () {
             + separator + (sec < 10 ? "0" + sec : "" + sec);
     };
     /**
-     * 解析时间成当前时间
-     * @param time
-     * @return
-     *
-     */
-    StringUtil.resloveFormatLastLoginTime = function (time) {
-        //发过来的时间是距离1970年1月1日的秒数，因此用DATE的格式化需要乘上1000
-        var t = "";
-        // var d:Date = new Date(time * 1000);
-        // t = d.fullYear + "年" + (d.month + 1) + "月" + d.date + "日" + d.hours + "时" + d.minutes + "分" + d.seconds +"秒";
-        return t;
-    };
-    /**
      * 解析时间成当前时间(天时分秒)
      * @param time
      * @return
@@ -185,61 +149,6 @@ var StringUtil = (function () {
             strDay = day + "天";
         }
         return strDay + strHour + "时" + strMinute + "分" + strSecond + "秒";
-    };
-    /**
-     * 解析时间(年月日)
-     * @param time
-     * @return
-     *
-     */
-    StringUtil.formatTimeToDay = function (time) {
-        //发过来的时间是距离1970年1月1日的秒数，因此用DATE的格式化需要乘上1000
-        var t = "";
-        // var d:Date = new Date(time * 1000);
-        // t = d.fullYear + "年" + (d.month + 1) + "月" + d.date + "日";
-        return t;
-    };
-    /**
-     * 解析时间(年月日时分)
-     * @param time
-     * @return
-     *
-     */
-    StringUtil.formatTimeToMin = function (time) {
-        //发过来的时间是距离1970年1月1日的秒数，因此用DATE的格式化需要乘上1000
-        var t = "";
-        var d = new Date(time * 1000);
-        // t = d.fullYear + "年" + (d.month + 1) + "月" + d.date + "日" + d.hours + "时" + d.minutes + "分";
-        return t;
-    };
-    /**
-     * 解析时间(年月日时分)
-     * 1970年1月1日10:20
-     * @param time
-     * @return
-     *
-     */
-    StringUtil.formatTimeToMin2 = function (time) {
-        //发过来的时间是距离1970年1月1日的秒数，因此用DATE的格式化需要乘上1000
-        var t = "";
-        var d = new Date(time * 1000);
-        // t = d.fullYear + "年" + (d.month + 1) + "月" + d.date + "日" + (d.hours < 10 ? "0" 
-        // 	+ d.hours : "" + d.hours) + ":" + (d.minutes < 10 ? "0" + d.minutes : "" + d.minutes);
-        return t;
-    };
-    /**
-     * 解析时间(时分秒)
-     * 1970年1月1日10:20
-     * @param time
-     * @return
-     */
-    StringUtil.formatTimeToMin3 = function (time) {
-        //发过来的时间是距离1970年1月1日的秒数，因此用DATE的格式化需要乘上1000
-        var t = "";
-        var d = new Date(time * 1000);
-        // t = (d.hours < 10 ? "0" + d.hours : "" + d.hours) + ":" + (d.minutes < 10 ? "0" + d.minutes : "" + d.minutes)
-        // 	+ ":" + (d.seconds < 10 ? "0" + d.seconds : "" + d.seconds);
-        return t;
     };
     /**
      * 替换所有的字符串,通过split and join
@@ -264,41 +173,6 @@ var StringUtil = (function () {
     StringUtil.randRange = function (min, max) {
         var randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
         return randomNum;
-    };
-    /**
-     * 从原字符串中,截取一个指定字节长度的字符串
-     * @param name
-     * @param leng
-     * @return
-     *
-     */
-    StringUtil.checkNameLength = function (name, leng, charSet) {
-        if (leng === void 0) { leng = 16; }
-        if (charSet === void 0) { charSet = "gb2312"; }
-        var ret = "";
-        // var bytes:ByteArray = new ByteArray();
-        // bytes.writeMultiByte(name, charSet);
-        // if(bytes.length > leng)
-        // {
-        // 	bytes.position = 0;
-        // 	ret = bytes.readMultiByte(leng,charSet);
-        // }
-        // else
-        // {
-        // 	ret = name;
-        // }
-        return ret;
-    };
-    /**
-     * 00：00
-     * @param value 秒
-     *
-     */
-    StringUtil.formatTimeToMinSec = function (value) {
-        var min = value / 60;
-        var sec = value % 60;
-        var t = (min >= 10 ? min : "0" + min) + ":" + (sec >= 10 ? sec : "0" + sec);
-        return t;
     };
     /**
      *  动态替换字符

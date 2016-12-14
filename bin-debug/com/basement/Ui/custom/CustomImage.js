@@ -8,8 +8,12 @@ var CustomImage = (function (_super) {
     var d = __define,c=CustomImage,p=c.prototype;
     d(p, "url",undefined
         ,function (value) {
-            if (this._url == value)
+            if (this._url == value) {
+                if (value == null || value == '') {
+                    this.clear();
+                }
                 return;
+            }
             App.ins.resManager.getImageRes(value, this.oLoadComplete, this, LoadPriorityEnum.IMAGE_PRIORITY);
         }
     );
@@ -23,6 +27,10 @@ var CustomImage = (function (_super) {
     p.dispos = function () {
         if (this.parent)
             this.parent.removeChild(this);
+        this.clear();
+    };
+    p.clear = function () {
+        this._url = '';
         if (this.texture) {
             this.texture.dispose();
             this.texture = null;

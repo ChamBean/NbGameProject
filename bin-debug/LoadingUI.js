@@ -43,7 +43,6 @@ var LoadingUI = (function (_super) {
     };
     p.setProgress = function (groupName, current, total) {
         this.textField.text = "Loading  " + groupName + "\u8D44\u6E90..." + current + "/" + total;
-        egret.log(this.textField.text);
     };
     return LoadingUI;
 }(egret.Sprite));

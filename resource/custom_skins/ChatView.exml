@@ -4,8 +4,11 @@
 	<e:TextInput id="textInput" width="247" height="50" x="23" y="533" anchorOffsetX="0" anchorOffsetY="0" textColor="0xffffff"/>
 	<e:Button id="sendBtn" label="发送" x="280" y="533"/>
 	<e:Label text="测试" x="159" y="7" anchorOffsetX="0" width="102" textAlign="center" size="22"/>
-	<e:Button id="openNodeBtn" label="自动走" x="149" y="95" skinName="ButtonSkin1" anchorOffsetX="0" width="121" anchorOffsetY="0" height="40"/>
-	<e:Button id="createBtn" label="生成角色" x="137" y="42" skinName="ButtonSkin1" anchorOffsetX="0" width="129" anchorOffsetY="0" height="41"/>
+	<e:Button id="openNodeBtn" label="自动走" x="151" y="97" skinName="ButtonSkin1" anchorOffsetX="0" width="121" anchorOffsetY="0" height="40"/>
+	<e:Button id="socketBtn" label="连接" x="291" y="387" skinName="ButtonSkin1" anchorOffsetX="0" width="92" anchorOffsetY="0" height="33"/>
 	<e:Button id="findBtn" label="寻找角色" x="31" y="97" skinName="ButtonSkin1" anchorOffsetY="0" height="40"/>
 	<e:Button id="dressBtn" label="切换角色" x="24" y="44" skinName="ButtonSkin1" anchorOffsetY="0" height="38"/>
+	<e:TextInput id="hostTxt" width="180.63" height="32.97" x="11" y="384" rotation="0.62" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:TextInput id="portTxt" width="83" height="29" x="202" y="387" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Button label="发送消息" x="28" y="432" skinName="ButtonSkin1"/>
 </e:Skin>

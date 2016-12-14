@@ -23,6 +23,7 @@ var CustomNumImg = (function (_super) {
         while (this.numChildren > 0) {
             var bmp = this.removeChildAt(0);
             bmp.texture = null;
+            bmp = null;
         }
     };
     return CustomNumImg;

@@ -3,6 +3,7 @@ var CustomButton = (function (_super) {
     function CustomButton() {
         _super.call(this);
         this._btnImg = null;
+        this._data = null;
         this.touchEnabled = true;
         this._btnImg = new CustomImage();
         this.addChild(this._btnImg);
@@ -26,11 +27,20 @@ var CustomButton = (function (_super) {
                 break;
             case egret.TouchEvent.TOUCH_TAP:
             case egret.TouchEvent.TOUCH_ROLL_OUT:
+            case egret.TouchEvent.TOUCH_END:
                 this._btnImg.x = 0;
                 this._btnImg.y = 0;
                 break;
         }
     };
+    d(p, "data"
+        ,function () {
+            return this._data;
+        }
+        ,function (val) {
+            this._data = val;
+        }
+    );
     return CustomButton;
 }(egret.Sprite));
 egret.registerClass(CustomButton,'CustomButton');

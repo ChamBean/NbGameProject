@@ -245,7 +245,7 @@ var SceneManager = (function () {
         var key = e.data.key;
         var roleData = this.myRoleData;
         if (key == 'sex') {
-            roleData.sex = Math.floor(Math.random() * 1);
+            roleData.sex = 1 - roleData.sex;
         }
         if (key == 'job') {
             roleData.job = Math.floor(Math.random() * 3);

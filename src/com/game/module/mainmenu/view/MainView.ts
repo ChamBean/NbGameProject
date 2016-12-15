@@ -16,6 +16,7 @@ class MainView extends eui.Component implements  eui.UIComponent {
 	private _fightNumImg:CustomNumImg;
 	
 	private testBtn:eui.Button = null;
+	private socketBtn:eui.Button = null;
 	private _roleData:PlayerInfoData = null;
 
 	private _module:MainModule;
@@ -66,9 +67,13 @@ class MainView extends eui.Component implements  eui.UIComponent {
 	
 	private addEvent():void{
 		this.testBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTestHandler,this);
+		this.socketBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTestHandler,this);
 	}
 
 	private onTestHandler(e:egret.TouchEvent):void{
-		App.ins.moduleManager.openModule(ModuleIdStatic.CHAT_MODULE);
+		if(e.currentTarget == this.testBtn)
+			App.ins.moduleManager.openModule(ModuleIdStatic.CHAT_MODULE);
+		if(e.currentTarget == this.socketBtn)
+			GameDispatcher.ins.dispatchEventWith(EventName.OPEN_GM_PANEL,{type:1});
 	}
 }

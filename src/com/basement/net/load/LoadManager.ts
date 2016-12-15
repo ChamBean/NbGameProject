@@ -74,7 +74,6 @@ class LoadManager {
 			loadArr = null;
 			delete this._loadMapByUrl[url];
 		}
-
 	}
 
 	private load(info:LoadInfo):void

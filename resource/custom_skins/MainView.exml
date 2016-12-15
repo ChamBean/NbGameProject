@@ -64,5 +64,6 @@
 		</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<e:Button id="testBtn" label="测试" x="5" y="182" anchorOffsetX="0" width="69" anchorOffsetY="0" height="55"/>
+	<e:Button id="testBtn" label="测试" x="8" y="308" anchorOffsetX="0" width="69" anchorOffsetY="0" height="37"/>
+	<e:Button id="socketBtn" label="通信" x="9" y="356" anchorOffsetX="0" width="69" anchorOffsetY="0" height="37"/>
 </e:Skin>

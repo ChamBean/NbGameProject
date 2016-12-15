@@ -6,6 +6,8 @@ declare class FeatureChangeViewSkin extends eui.Skin{
 }
 declare class MainViewSkin extends eui.Skin{
 }
+declare class SocketLogViewSkin extends eui.Skin{
+}
 declare module skins{
 	class ButtonSkin extends eui.Skin{
 	}

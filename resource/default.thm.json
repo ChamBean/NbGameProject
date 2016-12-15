@@ -18,7 +18,8 @@
     "MainView": "resource/custom_skins/MainView.exml",
     "ChatView": "resource/custom_skins/ChatView.exml",
     "FeatureChangeView": "resource/custom_skins/FeatureChangeView.exml",
-    "SecondWindow": "resource/eui_skins/SecondWindowSkin.exml"
+    "SecondWindow": "resource/eui_skins/SecondWindowSkin.exml",
+    "SocketLogView": "resource/custom_skins/SocketLogView.exml"
   },
   "autoGenerateExmlsList": true,
   "exmls": [
@@ -28,6 +29,7 @@
     "resource/eui_skins/SecondWindow.exml",
     "resource/custom_skins/FeatureChangeView.exml",
     "resource/custom_skins/MainView.exml",
+    "resource/custom_skins/SocketLogView.exml",
     "resource/eui_skins/ButtonSkin.exml",
     "resource/eui_skins/CheckBoxSkin.exml",
     "resource/eui_skins/HScrollBarSkin.exml",

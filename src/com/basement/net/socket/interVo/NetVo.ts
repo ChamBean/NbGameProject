@@ -8,11 +8,11 @@ module net{
 			return 0;
 		}
 		
-		public encodeCode(byteArray:egret.ByteArray):void{
+		public encodeCode(byteArray:GameByteArray):void{
 			
 		}
 		
-		public decodeCode(byteArray:egret.ByteArray):void{
+		public decodeCode(byteArray:GameByteArray):void{
 
 		}
 	}

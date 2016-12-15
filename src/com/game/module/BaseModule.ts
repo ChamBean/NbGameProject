@@ -34,14 +34,17 @@ class BaseModule {
 	
 	protected addSocketListener(cmd:number, callFun:Function) : void
 	{
+		net.SocketDispatcher.add(cmd,callFun);
 	}
 	
-	protected removeSocketListener(cla:number, callFun:Function) : void
+	protected removeSocketListener(cmd:number, callFun:Function) : void
 	{
+		net.SocketDispatcher.remove(cmd,callFun);
 	}
 	
 	protected sendSocketMessage(vo:any) : void
 	{
+		App.ins.socket.send(vo);
 	}
 	
 	protected dispatch(param1:string, param2:any = null) : void
@@ -56,6 +59,7 @@ class BaseModule {
 	
 	protected removeModuleListener(param1:string, param2:Function) : void
 	{
+		this._dispatch.removeEventListener(param1,param2,this);
 	}
 	
 	public dispose() : void

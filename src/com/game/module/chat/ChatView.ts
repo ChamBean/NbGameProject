@@ -30,22 +30,18 @@ class ChatView extends BaseView implements  eui.UIComponent {
 					var mapObj:any = {x:moveArr[1],y:moveArr[2]};
 					GameDispatcher.ins.dispatchEvent(new egret.Event(EventName.AUTO_SEARCH_ROAD,false,false,mapObj));
 				}
-				let reg = new RegExp('q','g')
 				 let date = new Date(parseInt(str));
-				 this.hostTxt.text = `${date.getFullYear()},${date.getMonth()+1},${date.getDate()},星期${date.getDay()},${date.getHours()},${date.getMinutes()}`
+				 this.hostTxt.text = `${date.getFullYear()},${date.getMonth()+1},${date.getDate()},星期${date.getDay()},${date.getHours()},${date.getMinutes()}`;
 				console.log(this.hostTxt.text);
 				break;
 			case this.openNodeBtn:
 				GameDispatcher.ins.dispatchEvent(new egret.Event(EventName.AUTO_SEARCH_ROAD));
 				this.isPop = false;
 				break;
-			case this.socketBtn:
-				// GameDispatcher.ins.dispatchEventWith(EventName.OPEN_GM_PANEL,{type:1});
-				// this.isPop = false;
-				var host:string = this.hostTxt.text;
-				var port:number = parseInt(this.portTxt.text);
-				App.ins.socket.connect(host,port);
-				break;
+			// case this.socketBtn:
+			// 	GameDispatcher.ins.dispatchEventWith(EventName.OPEN_GM_PANEL,{type:1});
+			// 	this.isPop = false;
+			// 	break;
 			case this.findBtn:
 				GameDispatcher.ins.dispatchEventWith(EventName.OPEN_GM_PANEL,{type:2});
 				this.isPop = false;
@@ -61,7 +57,7 @@ class ChatView extends BaseView implements  eui.UIComponent {
 	protected addEvent():void{
 		this.sendBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.clickHandler,this);
 		this.openNodeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.clickHandler,this);
-		this.socketBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.clickHandler,this);
+		// this.socketBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.clickHandler,this);
 		this.findBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.clickHandler,this);
 		this.dressBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.clickHandler,this);
 	}

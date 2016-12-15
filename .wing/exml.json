@@ -38,5 +38,10 @@
         "path": "com\\basement\\Ui\\component\\CustomWindow.ts",
         "class": "CustomWindow",
         "parentPath": ""
+    },
+    "158fc99c110": {
+        "path": "com\\game\\module\\GmModule\\SocketLogView.ts",
+        "class": "SocketLogView",
+        "parentPath": ""
     }
 }

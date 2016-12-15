@@ -3,6 +3,7 @@ var MainView = (function (_super) {
     function MainView(module) {
         _super.call(this);
         this.testBtn = null;
+        this.socketBtn = null;
         this._roleData = null;
         this._welcomView = null;
         this._module = module;
@@ -40,9 +41,13 @@ var MainView = (function (_super) {
     };
     p.addEvent = function () {
         this.testBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTestHandler, this);
+        this.socketBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTestHandler, this);
     };
     p.onTestHandler = function (e) {
-        App.ins.moduleManager.openModule(ModuleIdStatic.CHAT_MODULE);
+        if (e.currentTarget == this.testBtn)
+            App.ins.moduleManager.openModule(ModuleIdStatic.CHAT_MODULE);
+        if (e.currentTarget == this.socketBtn)
+            GameDispatcher.ins.dispatchEventWith(EventName.OPEN_GM_PANEL, { type: 1 });
     };
     return MainView;
 }(eui.Component));

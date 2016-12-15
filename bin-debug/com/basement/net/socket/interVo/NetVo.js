@@ -16,6 +16,7 @@ var net;
         };
         return NetVo;
     }());
-    egret.registerClass(NetVo,'NetVo');
+    net.NetVo = NetVo;
+    egret.registerClass(NetVo,'net.NetVo');
 })(net || (net = {}));
 //# sourceMappingURL=NetVo.js.map

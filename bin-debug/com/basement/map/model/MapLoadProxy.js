@@ -57,8 +57,12 @@ var MapLoadProxy = (function (_super) {
                 if (mapData.tileArray[obj.x][obj.y]) {
                     var title = mapData.tileArray[obj.x][obj.y];
                     var url = StringUtil.substitute(MapLoadProxy.mapClipSrc, mapData.mapId, title);
-                    if (this._bgView.hasClipBmp(url) || this._waitClips[url] != null)
+                    if (this._waitClips[url] != null)
                         continue;
+                    if (this._bgView.hasClipBmp(url)) {
+                        this._bgView.setClipBmd(url);
+                        continue;
+                    }
                     this._waitClips[url] = url;
                     var params = { mapid: mapData.mapId, url: url, self: this, x: obj.x, y: obj.y };
                     LoadManager.ins.addImgLoad(url, this.loadMapComplete, params, LoadPriorityEnum.MAPCLIP_PRIORITY);

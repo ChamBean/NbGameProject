@@ -28,10 +28,13 @@ var BaseModule = (function () {
         throw new Error("需要被重写");
     };
     p.addSocketListener = function (cmd, callFun) {
+        net.SocketDispatcher.add(cmd, callFun);
     };
-    p.removeSocketListener = function (cla, callFun) {
+    p.removeSocketListener = function (cmd, callFun) {
+        net.SocketDispatcher.remove(cmd, callFun);
     };
     p.sendSocketMessage = function (vo) {
+        App.ins.socket.send(vo);
     };
     p.dispatch = function (param1, param2) {
         if (param2 === void 0) { param2 = null; }
@@ -41,6 +44,7 @@ var BaseModule = (function () {
         this._dispatch.addEventListener(param1, param2, this);
     };
     p.removeModuleListener = function (param1, param2) {
+        this._dispatch.removeEventListener(param1, param2, this);
     };
     p.dispose = function () {
         return;

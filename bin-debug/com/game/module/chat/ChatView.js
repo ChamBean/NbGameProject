@@ -29,13 +29,10 @@ var ChatView = (function (_super) {
                 GameDispatcher.ins.dispatchEvent(new egret.Event(EventName.AUTO_SEARCH_ROAD));
                 this.isPop = false;
                 break;
-            case this.socketBtn:
-                // GameDispatcher.ins.dispatchEventWith(EventName.OPEN_GM_PANEL,{type:1});
-                // this.isPop = false;
-                var host = this.hostTxt.text;
-                var port = parseInt(this.portTxt.text);
-                App.ins.socket.connect(host, port);
-                break;
+            // case this.socketBtn:
+            // 	GameDispatcher.ins.dispatchEventWith(EventName.OPEN_GM_PANEL,{type:1});
+            // 	this.isPop = false;
+            // 	break;
             case this.findBtn:
                 GameDispatcher.ins.dispatchEventWith(EventName.OPEN_GM_PANEL, { type: 2 });
                 this.isPop = false;
@@ -49,7 +46,7 @@ var ChatView = (function (_super) {
     p.addEvent = function () {
         this.sendBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this);
         this.openNodeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this);
-        this.socketBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this);
+        // this.socketBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.clickHandler,this);
         this.findBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this);
         this.dressBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this);
     };

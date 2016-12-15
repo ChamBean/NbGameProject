@@ -64,8 +64,11 @@
 	<script egret="game" src="bin-debug/com/basement/net/load/LoadInfo.js"></script>
 	<script egret="game" src="bin-debug/com/basement/net/load/LoadManager.js"></script>
 	<script egret="game" src="bin-debug/com/basement/net/load/LoadPriorityEnum.js"></script>
+	<script egret="game" src="bin-debug/com/basement/net/socket/events/SocketEvent.js"></script>
+	<script egret="game" src="bin-debug/com/basement/net/socket/GameByteArray.js"></script>
 	<script egret="game" src="bin-debug/com/basement/net/socket/interVo/NetVo.js"></script>
 	<script egret="game" src="bin-debug/com/basement/net/socket/SocketBase.js"></script>
+	<script egret="game" src="bin-debug/com/basement/net/socket/SocketDispatcher.js"></script>
 	<script egret="game" src="bin-debug/com/basement/net/socket/SocketManager.js"></script>
 	<script egret="game" src="bin-debug/com/basement/scene/moviclip/CustomMoviClip.js"></script>
 	<script egret="game" src="bin-debug/com/basement/scene/role/Avatar.js"></script>
@@ -91,6 +94,7 @@
 	<script egret="game" src="bin-debug/com/game/module/createRole/CreateRoleView.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/GmModule/FeatureChangeView.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/GmModule/GmModule.js"></script>
+	<script egret="game" src="bin-debug/com/game/module/GmModule/SocketLogView.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/mainmenu/MainModule.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/mainmenu/view/MainView.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/mainmenu/view/WelcomView.js"></script>
@@ -101,6 +105,10 @@
 	<script egret="game" src="bin-debug/com/game/module/map/SceneManager.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/map/view/MapViewMediator.js"></script>
 	<script egret="game" src="bin-debug/com/game/module/ModuleManager.js"></script>
+	<script egret="game" src="bin-debug/com/game/net/CommandMap.js"></script>
+	<script egret="game" src="bin-debug/com/game/net/vo/Ccmd1100.js"></script>
+	<script egret="game" src="bin-debug/com/game/net/vo/Scmd1100.js"></script>
+	<script egret="game" src="bin-debug/com/game/net/vo/Scmd1100Data.js"></script>
 	<script egret="game" src="bin-debug/com/util/BinaryUtil.js"></script>
 	<script egret="game" src="bin-debug/com/util/EventName.js"></script>
 	<script egret="game" src="bin-debug/com/util/GameDispatcher.js"></script>
@@ -123,8 +131,8 @@
          data-content-height="800"
          data-show-paint-rect="false"
          data-multi-fingered="2"
-         data-show-fps="false" data-show-log="false"
-         data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
+         data-show-fps="true" data-show-log="false"
+         data-show-fps-style="x:0,y:0,size:15,textColor:0x00c200,bgAlpha:0.9">
     </div>
     <script>
         /**

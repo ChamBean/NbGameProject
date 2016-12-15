@@ -28,13 +28,13 @@ module TipsUtils {
         effectTips.bold = true;
         effectTips.textAlign = egret.HorizontalAlign.CENTER;
 
-        if(!GameLayerManager.gameLayer().effectLayer.contains(effectTips)){
-            GameLayerManager.gameLayer().effectLayer.addChild( effectTips );
+        if(!App.ins.layer.msgLayer.contains(effectTips)){
+           App.ins.layer.msgLayer.addChild( effectTips );
         }        
 
         var onComplete2:Function = function(){
-            if(GameLayerManager.gameLayer().effectLayer.contains(effectTips)){
-                GameLayerManager.gameLayer().effectLayer.removeChild( effectTips );
+            if(App.ins.layer.msgLayer.contains(effectTips)){
+               App.ins.layer.msgLayer.removeChild( effectTips );
                 effectTips = null;
             }
         };
@@ -69,8 +69,8 @@ module TipsUtils {
         effectTips.bold = true;
         effectTips.textAlign = egret.HorizontalAlign.CENTER;
 
-        if(!GameLayerManager.gameLayer().effectLayer.contains(effectTips)){
-            GameLayerManager.gameLayer().effectLayer.addChild( effectTips );
+        if(!App.ins.layer.msgLayer.contains(effectTips)){
+           App.ins.layer.msgLayer.addChild( effectTips );
         }        
 
         if(isFromeLeft){
@@ -96,8 +96,8 @@ module TipsUtils {
         }, this, 800);  
 
         egret.setTimeout(function () {
-            if(GameLayerManager.gameLayer().effectLayer.contains(effectTips)){
-                GameLayerManager.gameLayer().effectLayer.removeChild( effectTips );
+            if(App.ins.layer.msgLayer.contains(effectTips)){
+               App.ins.layer.msgLayer.removeChild( effectTips );
                 effectTips = null;
             }
         }, this, 1100);     
@@ -124,8 +124,8 @@ module TipsUtils {
         effectTips.bold = true;
         effectTips.textAlign = egret.HorizontalAlign.CENTER;
 
-        if(!GameLayerManager.gameLayer().effectLayer.contains(effectTips)){
-            GameLayerManager.gameLayer().effectLayer.addChild( effectTips );
+        if(!App.ins.layer.msgLayer.contains(effectTips)){
+           App.ins.layer.msgLayer.addChild( effectTips );
         }        
 
         effectTips.anchorOffsetX = effectTips.width/2;
@@ -134,8 +134,8 @@ module TipsUtils {
         effectTips.scaleY = 0;
         
         var onComplete2:Function = function(){
-            if(GameLayerManager.gameLayer().effectLayer.contains(effectTips)){
-                GameLayerManager.gameLayer().effectLayer.removeChild( effectTips );
+            if(App.ins.layer.msgLayer.contains(effectTips)){
+               App.ins.layer.msgLayer.removeChild( effectTips );
                 effectTips = null;
             }
         };
@@ -166,8 +166,8 @@ module TipsUtils {
         effectTips.bold = true;
         effectTips.textAlign = egret.HorizontalAlign.CENTER;
 
-        if(!GameLayerManager.gameLayer().effectLayer.contains(effectTips)){
-            GameLayerManager.gameLayer().effectLayer.addChild( effectTips );
+        if(!App.ins.layer.msgLayer.contains(effectTips)){
+           App.ins.layer.msgLayer.addChild( effectTips );
         }        
 
         effectTips.anchorOffsetX = effectTips.width / 2;
@@ -176,8 +176,8 @@ module TipsUtils {
         effectTips.scaleY = 4;
         
         var onComplete2:Function = function(){
-            if(GameLayerManager.gameLayer().effectLayer.contains(effectTips)){
-                GameLayerManager.gameLayer().effectLayer.removeChild( effectTips );
+            if(App.ins.layer.msgLayer.contains(effectTips)){
+               App.ins.layer.msgLayer.removeChild( effectTips );
                 effectTips = null;
             }
         };

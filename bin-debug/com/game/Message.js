@@ -76,7 +76,7 @@ var MessageItem = (function (_super) {
         tw.to({ "y": this.y - h }, 200);
     };
     p.setMsg = function (msg) {
-        this._msgTxt.textFlow = HtmlUtil.getHtmlStr(msg);
+        this._msgTxt.textFlow = Global.getTextFlow(msg);
         // this._msgTxt.width = this._msgTxt.textWidth + 3;
         // this._msgTxt.height = this._msgTxt.textHeight + 3;
         this._msgBackImg.width = this._msgTxt.textWidth + 3 + 12;

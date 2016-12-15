@@ -53,8 +53,8 @@ var net;
         };
         p.shiftBytes = function () {
             var byte = this._cachBytes.shift();
-            var mainId = byte.readInt();
-            var subId = byte.readUnsignedByte();
+            var mainId = byte.readByte();
+            var subId = byte.readByte();
             var cmd = mainId * 100 + subId;
             var cls = this._cmdMap.commands[cmd];
             if (cls == null) {
@@ -83,8 +83,8 @@ var net;
             var data = new net.GameByteArray();
             var mainCmd = Math.floor(vo.command / 100);
             var subCmd = vo.command % 100;
-            data.writeUnsignedShort(mainCmd);
-            data.writeUnsignedShort(subCmd);
+            data.writeByte(mainCmd);
+            data.writeByte(subCmd);
             vo.encodeCode(data);
             this._socket.send(data);
             this.printSocketLog(vo);

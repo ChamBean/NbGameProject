@@ -76,10 +76,8 @@ class SocketLogView extends BaseView implements  eui.UIComponent {
 			this.list.selectedIndex = this._selectIndex;
 			this.onItemTab(null);
 		}
-		// if(303 < 30 * this._logArr.length)
-		// 	this.list.y = 303 - 30 * this._logArr.length;
-		// this.verticalScrollBar.verticalScrollPosition 
-		// this.list.dataProvider = new eui.ArrayCollection(this._logArr);
+		if(303 < 33 * this._logArr.length)
+			this.list.scrollV = 33 * this._logArr.length - 303;
 	}
 
 	protected addEvent():void{
@@ -107,7 +105,7 @@ class SocketLogItem extends eui.ItemRenderer {
 	private labelDisplay:eui.Label = null;
     constructor() {
         super();
-		this.width = 201;
+		this.width = 180;
 		this.height = 30;
     }
 

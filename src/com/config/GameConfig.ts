@@ -103,9 +103,6 @@ module GameConfig {
         return egret.MainContext.instance.stage;
     }
 
-    //当前面板
-    export var curPanel: egret.DisplayObjectContainer;
-
     //当前游戏宽度
     export function curWidth(): number {
         return egret.MainContext.instance.stage.stageWidth;

@@ -9,12 +9,12 @@
 	<e:Button id="connectBtn" label="连接" x="26" y="116" skinName="ButtonSkin1" anchorOffsetY="0" height="37" anchorOffsetX="0" width="86"/>
 	<e:Label text="soket" x="136" y="2" anchorOffsetX="0" width="137" verticalAlign="middle" textAlign="center" anchorOffsetY="0" height="24"/>
 	<e:Button id="sendBtn" label="发送" x="270" y="180" anchorOffsetY="0" height="33" anchorOffsetX="0" width="90"/>
-	<e:Label text="" x="9" y="253" anchorOffsetX="0" width="201" anchorOffsetY="0" height="303" size="16" background="true" textColor="0xf9f3f3"/>
-	<e:Scroller id="scrListHeros" height="303" width="201" x="9" y="253">
+	<e:Label text="" x="9" y="253" width="200" anchorOffsetY="0" height="300" size="16" background="true" textColor="0xf9f3f3"/>
+	<e:Scroller id="scrListHeros" height="300" width="200" x="9" y="253">
 		<e:viewport>
-		<e:List id="list" width="201" height="300" y="1">
+		<e:List id="list" width="200">
 			<e:layout>
-			<e:VerticalLayout/>
+			<e:VerticalLayout gap="3"/>
 			</e:layout>
 		</e:List>
 		</e:viewport>

@@ -58,10 +58,8 @@ var SocketLogView = (function (_super) {
             this.list.selectedIndex = this._selectIndex;
             this.onItemTab(null);
         }
-        // if(303 < 30 * this._logArr.length)
-        // 	this.list.y = 303 - 30 * this._logArr.length;
-        // this.verticalScrollBar.verticalScrollPosition 
-        // this.list.dataProvider = new eui.ArrayCollection(this._logArr);
+        if (303 < 33 * this._logArr.length)
+            this.list.scrollV = 33 * this._logArr.length - 303;
     };
     p.addEvent = function () {
         this.connectBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickHandler, this);
@@ -85,7 +83,7 @@ var SocketLogItem = (function (_super) {
     function SocketLogItem() {
         _super.call(this);
         this.labelDisplay = null;
-        this.width = 201;
+        this.width = 180;
         this.height = 30;
     }
     var d = __define,c=SocketLogItem,p=c.prototype;
